@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+    <item
+        android:id="@+id/delete_all_quotes"
+        android:title="delete All" ></item>
+    <item
+        android:id="@+id/filter_quotes"
+        android:title="Filter">
+        <menu >
+            <item
+                android:id="@+id/filter_family"
+                android:title="Family Quotes" />
+            <item
+                android:id="@+id/filter_friends"
+                android:title="Friends Quotes" />
+            <item
+                android:id="@+id/filter_lover"
+                android:title="Lover Quotes" />
+            <item
+                android:id="@+id/filter_anonymous"
+                android:title="Anonymous Quotes" />
+            <item
+                android:id="@+id/show_all_quotes"
+                android:title="All Quotes" />
+        </menu>
+    </item>
+</menu>

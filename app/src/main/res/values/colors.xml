@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#698269</color>
+    <color name="colorPrimaryDark">#AA5656</color>
+    //this for borders and somethings like that
+    <color name="colorPrimaryText">#009688</color>
+    <color name="colorSecondaryText">#757575</color>
+    <color name="colorLightAccent">#F1DBBF</color>
+    <color name="colorVanilla">#B99B6B</color>
+    <color name="colorAccent">#F1DBBF</color>
+
+
+
+</resources>

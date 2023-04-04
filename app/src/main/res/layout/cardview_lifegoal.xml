@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="achieverGoal"
+            type="com.example.achieverassistant.achieverGoal.models.AchieverGoal" />
+
+        <variable
+            name="viewModel"
+            type="com.example.achieverassistant.achieverGoal.AchieverGoalViewModel" />
+
+
+    </data>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="7dp"
+        android:padding="7dp"
+        android:textAlignment="center"
+        app:cardBackgroundColor="#F8F7F6">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:layout_editor_absoluteX="-11dp"
+            tools:layout_editor_absoluteY="0dp">
+
+
+            <TextView
+                android:id="@+id/textview_life_goal"
+                style="@style/TextAppearance.Title"
+                android:layout_width="0dp"
+                android:layout_height="45dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:maxLines="1"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/textview_duration_achiever"
+                style="@style/TextAppearance.Title"
+                android:layout_width="0dp"
+                android:layout_height="45dp"
+                android:layout_below="@+id/textview_life_goal"
+
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:maxLines="1"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textview_life_goal" />
+
+            <ImageView
+                android:id="@+id/edit_goal_image_view"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_below="@+id/textview_duration_achiever"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="8dp"
+                android:background="@color/colorPrimary"
+                android:contentDescription="@string/image_edit_goal_string"
+                android:textAlignment="center"
+                android:textSize="30sp"
+                app:layout_constraintBottom_toTopOf="@+id/recycler_steps"
+                app:layout_constraintEnd_toStartOf="@+id/delete_goal_image_view"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/add_step_image_view"
+                app:layout_constraintTop_toBottomOf="@+id/textview_duration_achiever"
+                app:srcCompat="@drawable/ic_baseline_edit_24" />
+
+            <ImageView
+                android:id="@+id/add_step_image_view"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_below="@+id/textview_duration_achiever"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="8dp"
+                android:background="@color/colorPrimary"
+                android:contentDescription="@string/add_new_goal"
+                android:minHeight="48dp"
+                app:layout_constraintEnd_toStartOf="@+id/edit_goal_image_view"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintHorizontal_chainStyle="packed"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textview_duration_achiever"
+                app:srcCompat="@drawable/ic_baseline_add_24" />
+
+
+            <ImageView
+                android:id="@+id/delete_goal_image_view"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="20dp"
+                android:background="@color/colorPrimary"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/edit_goal_image_view"
+                app:layout_constraintTop_toBottomOf="@+id/textview_duration_achiever"
+                app:srcCompat="@drawable/ic_baseline_delete_forever_24" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler_steps"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="16dp"
+                android:orientation="vertical"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/delete_goal_image_view"
+                tools:listitem="@layout/card_view_steps" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
+</layout>

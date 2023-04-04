@@ -1,0 +1,33 @@
+<resources>
+    <string name="app_name">Achiever Assistant</string>
+    <string name="opened">Opened</string>
+    <string name="closed">Closed</string>
+
+    <string name="moments_table">moments_table</string>
+
+    <string name="drawer_menu_title">Achiever Assistant</string>
+    <string name="drawer_daily_group">Daily Tasks</string>
+    <string name="drawer_goals_group">Goals Tasks</string>
+    <string name="drawer_daily_item">Daily current task</string>
+    <string name="drawer_goals_item">Goal item</string>
+    <string name ="add_new_goal" >Add new Step</string>
+
+
+    <string name="daily_tasks">daily tasks</string>
+    <string name="dd">delete from daily tasks</string>
+    <string name="requestCodeAchiever">REQUEST_CODE</string>
+    <string name="the_goal">Add Life Goal</string>
+    <string name="add_new_step">Add new Step</string>
+    <string name="add_new_step_string">Add New Step</string>
+    <string name="image_edit_goal_string">Image View For Edit Goal</string>
+    <string name="todo">TODO</string>
+    <string name="todo1">TODO</string>
+
+
+    //values for spinner list
+    <string name="friends_item">Friends</string>
+    <string name="family_item">Family</string>
+    <string name="lover_item">Lover</string>
+    <string name="anon_item">Anonymous</string>
+
+</resources>

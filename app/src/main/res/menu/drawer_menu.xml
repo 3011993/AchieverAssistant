@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+   <item android:title="Achiever Assistant"
+       android:id="@+id/achiever_assistant_item"/>
+
+
+
+
+        <group android:checkableBehavior="single">
+
+        <item android:title="Moments"
+            android:id="@+id/moments_item"
+            android:icon="@drawable/ic_favorite_border_black_24dp"
+            />
+            <item
+                android:title="Quotes"
+                android:id="@+id/quotes_item"
+                android:icon="@drawable/ic_favorite_border_black_24dp"/>
+
+         <item android:title="Habits"
+             android:id="@+id/habits_item"
+             android:icon="@drawable/ic_favorite_border_black_24dp"/>
+
+        </group>
+
+</menu>
+
+
+

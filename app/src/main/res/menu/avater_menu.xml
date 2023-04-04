@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:title="Avater"
+        android:id="@+id/avater_icon"/>
+
+
+
+
+    <group android:checkableBehavior="single">
+
+        <item android:title="Friend"
+            android:id="@+id/friend_item"
+            android:icon="@drawable/ic_favorite_border_black_24dp"
+            />
+        <item
+            android:title="lover"
+            android:id="@+id/lover_item"
+            android:icon="@drawable/ic_favorite_border_black_24dp"/>
+
+        <item android:title="Anonymous"
+            android:id="@+id/anonymous_item"
+            android:icon="@drawable/ic_favorite_border_black_24dp"/>
+
+    </group>
+
+</menu>
