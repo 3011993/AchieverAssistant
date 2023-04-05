@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
-import com.example.achieverassistant.achieverGoal.AchieverGoalViewModel
 import com.example.achieverassistant.achieverGoal.interfaces.ItemListenerInterface
 import com.example.achieverassistant.achieverGoal.models.AchieverGoal
 import com.example.achieverassistant.achieverGoal.models.Steps
@@ -48,8 +47,7 @@ class RecyclerAdapterForAchieverGoal(val clickListener: OnAchieverGoalListener,
             val adapter = RecyclerAdapterForSteps(itemListenerInterface)
 
 
-            println("try stasth things ")
-            println("new brach")
+
 
 
             binding.recyclerSteps.adapter = adapter
