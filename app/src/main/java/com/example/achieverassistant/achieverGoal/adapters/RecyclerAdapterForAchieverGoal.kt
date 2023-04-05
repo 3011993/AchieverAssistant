@@ -47,15 +47,9 @@ class RecyclerAdapterForAchieverGoal(val clickListener: OnAchieverGoalListener,
 
             val adapter = RecyclerAdapterForSteps(itemListenerInterface)
 
-            val fakedata = ArrayList<Steps>()
-            fakedata.add(0, Steps(step = "First Step"))
-            fakedata.add(1,Steps(step = "Second Step"))
-            fakedata.add(2,Steps(step = "Third Step"))
-            fakedata.add(3,Steps(step = "Fourth Step"))
 
-            val data = fakedata as List<Steps>
             binding.recyclerSteps.adapter = adapter
-            adapter.submitList(data)
+            adapter.submitList(achieverGoal.steps)
             adapter.notifyDataSetChanged()
 
             binding.addStepImageView.setOnClickListener{
@@ -68,7 +62,6 @@ class RecyclerAdapterForAchieverGoal(val clickListener: OnAchieverGoalListener,
             binding.deleteGoalImageView.setOnClickListener{
                 clickListener.removeGoal(achieverGoal)
             }
-
             binding.executePendingBindings()
 
 
