@@ -8,7 +8,12 @@ import android.content.Intent
 import android.widget.Toast
 
 import android.view.View
+import androidx.activity.viewModels
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.viewModels
+import com.example.achieverassistant.achieverGoal.data.getAchieverGoalsDatabase
+import com.example.achieverassistant.achieverGoal.models.AchieverGoal
+import com.example.achieverassistant.achieverGoal.models.Steps
 import com.example.achieverassistant.databinding.ActivityAddeditgoalBinding
 
 class AddEditGoal : AppCompatActivity() {
@@ -17,6 +22,10 @@ class AddEditGoal : AppCompatActivity() {
 
     private lateinit var binding : ActivityAddeditgoalBinding
 
+    private val achieverGoalViewModel by viewModels<AchieverGoalViewModel> {
+        val database = getAchieverGoalsDatabase(application)
+        AchieverGoalViewModel.AchieverGoalFactory(database,application)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,6 +56,18 @@ class AddEditGoal : AppCompatActivity() {
                 .show()
             return
         }
+
+        achieverGoalViewModel.insertStep(Steps(step =  stepsGoal))
+        val list = ArrayList<Steps?>()
+        list.add(Steps(step = stepsGoal))
+
+
+
+        val achieverGoal = AchieverGoal(goal,durationGoal,list)
+        achieverGoalViewModel.insertGoal(achieverGoal)
+        Toast.makeText(application, "Goal Added", Toast.LENGTH_SHORT).show()
+
+
         val saveGoal = Intent()
         saveGoal.putExtra(EXTRA_DATA_GOAL, goal)
         saveGoal.putExtra(EXTRA_DATA_DURATION_GOAl, durationGoal)

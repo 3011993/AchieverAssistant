@@ -89,9 +89,6 @@ class DailyTasksFragment : Fragment() {
 
         createNotificationRight()
 
-
-
-
         setHasOptionsMenu(true)
 
         return binding.root

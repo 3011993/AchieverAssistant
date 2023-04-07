@@ -13,7 +13,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#FFFFFF"
+        android:background="@color/md_theme_light_surface"
         tools:context=".moments.Moments">
 
 
@@ -41,6 +41,7 @@
             android:layout_alignParentBottom="true"
             android:layout_marginEnd="12dp"
             android:layout_marginBottom="49dp"
+            android:background="@color/md_theme_light_primary"
             app:srcCompat="@drawable/ic_baseline_add_24"
             tools:ignore="SpeakableTextPresentCheck" />
     </RelativeLayout>

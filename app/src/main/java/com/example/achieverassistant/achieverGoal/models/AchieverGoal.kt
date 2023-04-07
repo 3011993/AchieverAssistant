@@ -11,13 +11,13 @@ import kotlinx.parcelize.Parcelize
 @Entity
 @Parcelize
 data class AchieverGoal(
-    @PrimaryKey(autoGenerate = true) var achieverGoalId: Int = 0,
+
     var achieverGoal: String,
     var achieverGoalDuration: String,
     val steps : ArrayList<Steps?>?
 
 ) : Parcelable {
-
+    @PrimaryKey(autoGenerate = true) var achieverGoalId: Int = 0
 }
 
 

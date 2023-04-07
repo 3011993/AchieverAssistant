@@ -12,7 +12,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#FBFBFB">
+        android:background="@color/design_default_color_surface">
 
 
         <androidx.recyclerview.widget.RecyclerView
@@ -37,7 +37,7 @@
             android:contentDescription="TODO"
             android:focusable="true"
             android:minHeight="48dp"
-            app:backgroundTint="@color/colorPrimary"
+            app:backgroundTint="@color/md_theme_light_primary"
             app:srcCompat="@drawable/ic_baseline_add_24" />
 
     </RelativeLayout>

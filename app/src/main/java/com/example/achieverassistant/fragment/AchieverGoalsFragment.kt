@@ -27,7 +27,7 @@ import com.example.achieverassistant.achieverGoal.models.AchieverGoal
 import com.example.achieverassistant.achieverGoal.models.Steps
 import com.example.achieverassistant.databinding.AchieverGoalsLayoutBinding
 
-class AchieverGoalsFragment : Fragment(),ItemListenerInterface {
+class AchieverGoalsFragment : Fragment(), ItemListenerInterface {
 
 
     lateinit var recyclerAdapterForAchieverGoal: RecyclerAdapterForAchieverGoal
@@ -35,7 +35,7 @@ class AchieverGoalsFragment : Fragment(),ItemListenerInterface {
 
     private val achieverGoalViewModel by viewModels<AchieverGoalViewModel> {
         val database = getAchieverGoalsDatabase(requireActivity().application)
-        AchieverGoalViewModel.AchieverGoalFactory(database,requireActivity().application)
+        AchieverGoalViewModel.AchieverGoalFactory(database, requireActivity().application)
     }
 
     override fun onCreateView(
@@ -50,14 +50,14 @@ class AchieverGoalsFragment : Fragment(),ItemListenerInterface {
 
         binding.buttonAddNewGoal.setOnClickListener {
             val intent = Intent(activity, AddEditGoal::class.java)
-            activityResultLauncher.launch(intent)
+            startActivity(intent)
         }
 
         val clickListener =
             RecyclerAdapterForAchieverGoal.OnAchieverGoalListener({ steps ->
-                Toast.makeText(requireContext(),"AddStep",Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), "AddStep", Toast.LENGTH_SHORT).show()
                 val showNewStep = DialogShowNewStep()
-                showNewStep.show(childFragmentManager,"add new Step dialog")
+                showNewStep.show(childFragmentManager, "add new Step dialog")
 
 
             }, { achieverGoal ->
@@ -73,13 +73,16 @@ class AchieverGoalsFragment : Fragment(),ItemListenerInterface {
                 editActivityLauncher.launch(intent)
 
             }, { achieverGoal ->
-                Toast.makeText(requireContext(),"DeleteGoal",Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), "DeleteGoal", Toast.LENGTH_SHORT).show()
                 val dialogRemoveGoal = DialogRemoveGoal(achieverGoal)
-                dialogRemoveGoal.show(childFragmentManager,"Delete Goal!")
+                dialogRemoveGoal.show(childFragmentManager, "Delete Goal!")
 
             })
 
-        recyclerAdapterForAchieverGoal = RecyclerAdapterForAchieverGoal(clickListener,this@AchieverGoalsFragment)
+        recyclerAdapterForAchieverGoal = RecyclerAdapterForAchieverGoal(
+            clickListener,
+            this@AchieverGoalsFragment
+        )
 
         binding.recyclerAchieverGoal.adapter = recyclerAdapterForAchieverGoal
         binding.lifecycleOwner = this
@@ -98,12 +101,12 @@ class AchieverGoalsFragment : Fragment(),ItemListenerInterface {
 
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.achiever_goal_menu,menu)
+        inflater.inflate(R.menu.achiever_goal_menu, menu)
         super.onCreateOptionsMenu(menu, inflater)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when(item.itemId){
+        when (item.itemId) {
             R.id.deleteAllGoals -> {
                 achieverGoalViewModel.deleteAllGoals()
             }
@@ -112,63 +115,35 @@ class AchieverGoalsFragment : Fragment(),ItemListenerInterface {
 
     }
 
-    private val activityResultLauncher =
+
+    private val editActivityLauncher =
         registerForActivityResult(StartActivityForResult()) { result ->
-            val data = result.data
-            if (result.resultCode == Activity.RESULT_OK) {
-                val goal = data!!.getStringExtra(AddEditGoal.EXTRA_DATA_GOAL).toString()
-                val durationgoal =
-                    data.getStringExtra(AddEditGoal.EXTRA_DATA_DURATION_GOAl).toString()
-                val stepGoal = data.getStringExtra(AddEditGoal.EXTRA_DATA_STEP_GOAl).toString()
-                achieverGoalViewModel.insertStep(Steps(step =  stepGoal))
-                val list = ArrayList<Steps?>()
-                list.add(Steps(step = stepGoal))
-
-
-
-                val achieverGoal = AchieverGoal(
-                    achieverGoal = goal,
-                    achieverGoalDuration = durationgoal,
-                    steps = list
-                )
-                achieverGoalViewModel.insertGoal(achieverGoal)
-                Toast.makeText(activity, "Goal Added", Toast.LENGTH_SHORT).show()
-            }
-        }
-
-
-    private val editActivityLauncher = registerForActivityResult(
-        StartActivityForResult()
-    ) { result ->
-        if(result.data == null){
-            return@registerForActivityResult
-        } else {
-            val data = result.data
-            val requestGoalEdit = result.data!!
-                .getIntExtra(getString(R.string.requestCodeAchiever), edit_goal_request)
-            if (result.resultCode == requestGoalEdit && result.resultCode == Activity.RESULT_OK) {
-                val id = data!!.getIntExtra(AddEditGoal.EXTRA_DATA_ID_GOAL, -1)
-                if (id == -1) {
-                    Toast.makeText(activity, "Goal Not Added", Toast.LENGTH_SHORT).show()
+            if (result.data == null) {
+                return@registerForActivityResult
+            } else {
+                val data = result.data
+                val requestGoalEdit = result.data!!.getIntExtra(getString(R.string.requestCodeAchiever), edit_goal_request)
+                if (result.resultCode == requestGoalEdit && result.resultCode == Activity.RESULT_OK) {
+                    val id = data!!.getIntExtra(AddEditGoal.EXTRA_DATA_ID_GOAL, -1)
+                    if (id == -1) {
+                        Toast.makeText(activity, "Goal Not Added", Toast.LENGTH_SHORT).show()
+                    }
+                    val goal = data.getStringExtra(AddEditGoal.EXTRA_DATA_GOAL).toString()
+                    val durationGoal =
+                        data.getStringExtra(AddEditGoal.EXTRA_DATA_DURATION_GOAl).toString()
+                    val stepGoal = data.getStringExtra(AddEditGoal.EXTRA_DATA_STEP_GOAl).toString()
+                    val list = ArrayList<Steps?>()
+                    val achieverGoal = AchieverGoal(
+                        achieverGoal = goal,
+                        achieverGoalDuration = durationGoal,
+                        steps = list
+                    )
+                    achieverGoal.achieverGoalId = id
+                    achieverGoalViewModel.updateGoal(achieverGoal)
+                    Toast.makeText(activity, "Goal Edited", Toast.LENGTH_SHORT).show()
                 }
-                val goal = data.getStringExtra(AddEditGoal.EXTRA_DATA_GOAL).toString()
-                val durationGoal =
-                    data.getStringExtra(AddEditGoal.EXTRA_DATA_DURATION_GOAl).toString()
-                val stepGoal = data.getStringExtra(AddEditGoal.EXTRA_DATA_STEP_GOAl).toString()
-                val list = ArrayList<Steps?>()
-                val achieverGoal = AchieverGoal(
-                    achieverGoal = goal,
-                    achieverGoalDuration = durationGoal,
-                    steps = list
-                )
-                achieverGoal.achieverGoalId = id
-                achieverGoalViewModel.updateGoal(achieverGoal)
-                Toast.makeText(activity, "Goal Edited", Toast.LENGTH_SHORT).show()
             }
         }
-    }
-
-
 
 
     companion object {
@@ -176,10 +151,11 @@ class AchieverGoalsFragment : Fragment(),ItemListenerInterface {
     }
 
     override fun editStep(position: Int) {
-        Log.i("nested","Edit Step From Achiever Fragment")
+        Log.i("nested", "Edit Step From Achiever Fragment")
+
     }
 
     override fun deleteStep(position: Int) {
-        Log.i("nested","delete Step From Achiever Fragment")
+        Log.i("nested", "delete Step From Achiever Fragment")
     }
 }

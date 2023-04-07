@@ -12,7 +12,7 @@ import com.example.achieverassistant.achieverGoal.models.Steps
 import com.example.achieverassistant.databinding.CardviewLifegoalBinding
 
 class RecyclerAdapterForAchieverGoal(val clickListener: OnAchieverGoalListener,
-                                     val itemListenerInterface: ItemListenerInterface) :
+                                     private val itemListenerInterface: ItemListenerInterface) :
     ListAdapter<AchieverGoal, RecyclerAdapterForAchieverGoal.ViewHolder>(DiffCallBack) {
 
 
@@ -29,12 +29,9 @@ class RecyclerAdapterForAchieverGoal(val clickListener: OnAchieverGoalListener,
     }
 
 
-    fun getItemAt(position: Int): AchieverGoal {
-        return getItem(position)
-    }
 
 
-    class ViewHolder(private val binding: CardviewLifegoalBinding, val itemListenerInterface: ItemListenerInterface) :
+    class ViewHolder(private val binding: CardviewLifegoalBinding, private val itemListenerInterface: ItemListenerInterface) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(clickListener: OnAchieverGoalListener, achieverGoal: AchieverGoal) {

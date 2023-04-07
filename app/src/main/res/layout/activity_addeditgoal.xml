@@ -11,23 +11,21 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#FFFFFF"
+        android:background="@color/design_default_color_surface"
         tools:context=".achieverGoal.AddEditGoal">
 
         <EditText
             android:id="@+id/edittext_goal"
             android:layout_width="0dp"
             android:layout_height="48dp"
-            android:layout_marginStart="32dp"
             android:layout_marginTop="48dp"
             android:layout_marginEnd="32dp"
-            android:background="@color/colorVanilla"
-            android:fontFamily="@font/roboto_light"
             android:hint="Add your Goal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            style="@style/normal_edit_text_style" />
 
         <EditText
             android:id="@+id/edittext_duration"
@@ -37,7 +35,7 @@
             android:layout_marginStart="32dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="32dp"
-            android:background="@color/colorVanilla"
+            style="@style/normal_edit_text_style"
             android:hint="how long time to achieve it"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
@@ -52,7 +50,7 @@
             android:layout_marginStart="32dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="32dp"
-            android:background="@color/colorVanilla"
+            style="@style/normal_edit_text_style"
             android:hint="your first step"
             android:minHeight="48dp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -67,7 +65,8 @@
             android:layout_alignParentBottom="true"
             android:layout_marginTop="184dp"
             android:layout_marginBottom="100dp"
-            android:background="@color/colorVanilla"
+            android:background="@color/md_theme_light_primary"
+            android:textColor="@color/md_theme_light_onPrimary"
             android:text="SET"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

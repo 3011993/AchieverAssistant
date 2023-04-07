@@ -20,7 +20,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="4dp"
-        android:backgroundTint="@color/colorAccent">
+        android:backgroundTint="@color/md_theme_light_secondary">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -35,8 +35,9 @@
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="50dp"
                 android:text="Friend"
+                style="@style/normal_text_view_style"
                 android:textAlignment="viewStart"
-                android:textColor="#0B0A0A"
+
                 android:textSize="24sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.141"
@@ -47,6 +48,7 @@
                 android:id="@+id/textview_quote"
                 android:layout_width="346dp"
                 android:layout_height="41dp"
+                style="@style/normal_text_view_style"
                 android:layout_below="@id/textview_member"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="18dp"
@@ -64,6 +66,7 @@
                 android:layout_height="41dp"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
+                android:background="@color/md_theme_light_surface"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/anon" />

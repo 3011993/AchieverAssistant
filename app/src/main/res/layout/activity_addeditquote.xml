@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".quotes.ADDEDITQuote"
-        android:background="#FAF7F4">
+        android:background="@color/md_theme_light_surface">
 
         <Spinner
             android:id="@+id/spinner"
@@ -26,6 +26,7 @@
 
         <EditText
             android:id="@+id/edittext_quote"
+            style="@style/normal_edit_text_style"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/spinner"
@@ -39,6 +40,8 @@
             android:layout_alignParentBottom="true"
             android:layout_marginStart="-99dp"
             android:layout_marginBottom="81dp"
+            android:background="@color/md_theme_light_primary"
+            android:textColor="@color/md_theme_light_onPrimary"
             android:layout_toEndOf="@+id/spinner"
             android:text="Record" />
 
