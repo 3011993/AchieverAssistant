@@ -7,15 +7,13 @@ import android.widget.Toast
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.viewModels
 import com.example.achieverassistant.achieverGoal.AchieverGoalViewModel
-import com.example.achieverassistant.achieverGoal.data.getAchieverGoalsDatabase
 import com.example.achieverassistant.achieverGoal.models.AchieverGoal
+import dagger.hilt.android.AndroidEntryPoint
 
-class DialogRemoveGoal(val achieverGoal : AchieverGoal) : DialogFragment() {
+@AndroidEntryPoint
+class DialogRemoveGoal(val achieverGoal: AchieverGoal) : DialogFragment() {
 
-    private val achieverGoalViewModel by viewModels<AchieverGoalViewModel> {
-        val database = getAchieverGoalsDatabase(requireActivity().application)
-        AchieverGoalViewModel.AchieverGoalFactory(database,requireActivity().application)
-    }
+    private val achieverGoalViewModel by viewModels<AchieverGoalViewModel>()
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
 
         val alert = AlertDialog.Builder(activity)
@@ -31,7 +29,7 @@ class DialogRemoveGoal(val achieverGoal : AchieverGoal) : DialogFragment() {
             Toast.makeText(activity, "Task is Not Deleted", Toast.LENGTH_SHORT).show()
             //here to observe daily tasks
         }
-        return  alert.create()
+        return alert.create()
     }
 
-    }
+}

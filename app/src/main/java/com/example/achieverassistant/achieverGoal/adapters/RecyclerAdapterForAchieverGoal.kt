@@ -6,21 +6,20 @@ import android.view.LayoutInflater
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
-import com.example.achieverassistant.achieverGoal.AchieverGoalViewModel
 import com.example.achieverassistant.achieverGoal.interfaces.ItemListenerInterface
 import com.example.achieverassistant.achieverGoal.models.AchieverGoal
 import com.example.achieverassistant.achieverGoal.models.Steps
 import com.example.achieverassistant.databinding.CardviewLifegoalBinding
 
-class RecyclerAdapterForAchieverGoal(val clickListener: OnAchieverGoalListener,
-                                     private val itemListenerInterface: ItemListenerInterface) :
+class RecyclerAdapterForAchieverGoal(
+    val clickListener: OnAchieverGoalListener,
+    private val itemListenerInterface: ItemListenerInterface
+) :
     ListAdapter<AchieverGoal, RecyclerAdapterForAchieverGoal.ViewHolder>(DiffCallBack) {
 
 
-
-
     override fun onCreateViewHolder(viewGroup: ViewGroup, i: Int): ViewHolder {
-       return ViewHolder.from(viewGroup,itemListenerInterface)
+        return ViewHolder.from(viewGroup, itemListenerInterface)
     }
 
 
@@ -30,9 +29,10 @@ class RecyclerAdapterForAchieverGoal(val clickListener: OnAchieverGoalListener,
     }
 
 
-
-
-    class ViewHolder(private val binding: CardviewLifegoalBinding, private val itemListenerInterface: ItemListenerInterface) :
+    class ViewHolder(
+        private val binding: CardviewLifegoalBinding,
+        private val itemListenerInterface: ItemListenerInterface
+    ) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(clickListener: OnAchieverGoalListener, achieverGoal: AchieverGoal) {
@@ -50,29 +50,30 @@ class RecyclerAdapterForAchieverGoal(val clickListener: OnAchieverGoalListener,
             binding.recyclerSteps.adapter = adapter
             adapter.submitList(achieverGoal.steps)
 
-            binding.addStepImageView.setOnClickListener{
+            binding.addStepImageView.setOnClickListener {
                 clickListener.addStep(achieverGoal.steps)
             }
 
-            binding.editGoalImageView.setOnClickListener{
+            binding.editGoalImageView.setOnClickListener {
                 clickListener.editGoal(achieverGoal)
             }
-            binding.deleteGoalImageView.setOnClickListener{
+            binding.deleteGoalImageView.setOnClickListener {
                 clickListener.removeGoal(achieverGoal)
             }
             binding.executePendingBindings()
-
-
 
 
         }
 
 
         companion object {
-            fun from(viewGroup: ViewGroup, itemListenerInterface: ItemListenerInterface): ViewHolder {
+            fun from(
+                viewGroup: ViewGroup,
+                itemListenerInterface: ItemListenerInterface
+            ): ViewHolder {
                 val layoutInflater = LayoutInflater.from(viewGroup.context)
                 val binding = CardviewLifegoalBinding.inflate(layoutInflater, viewGroup, false)
-                return ViewHolder(binding,itemListenerInterface)
+                return ViewHolder(binding, itemListenerInterface)
             }
 
         }
@@ -106,7 +107,7 @@ class RecyclerAdapterForAchieverGoal(val clickListener: OnAchieverGoalListener,
         val clickListenerEditGoal: (achieverGoal: AchieverGoal) -> Unit,
         val clickListenerDeleteGoal: (achieverGoal: AchieverGoal) -> Unit,
 
-    ) {
+        ) {
         fun addStep(steps: ArrayList<Steps?>?) = clickListenerAddStep(steps)
         fun removeGoal(achieverGoal: AchieverGoal) = clickListenerDeleteGoal(achieverGoal)
         fun editGoal(achieverGoal: AchieverGoal) = clickListenerEditGoal(achieverGoal)

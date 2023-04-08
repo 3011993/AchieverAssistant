@@ -16,38 +16,42 @@ import java.util.*
 
 const val channelDailyNotificationID = "Daily Task Notification ID"
 const val channelDailyNotificationName = "Daily Task Notifications"
-const val CODE_REQUEST_DAILY_NOTIFICATION_ID =202
+const val CODE_REQUEST_DAILY_NOTIFICATION_ID = 202
 const val NOTIFICATION_DAILY_ID = 77
 
-const val MAX_TIME_STAMP =8640000000000000
+const val MAX_TIME_STAMP = 8640000000000000
 
 
-    fun convertDateToString(date : Date) : String{
-        val format1 = "MMM dd, yyyy"
-        val format2 = "MMM dd, yyyy, hh:mm aaa"
-        val dateInfinity = Date(MAX_TIME_STAMP)
-        return if(dateInfinity.compareTo(date) == 0) "N/A"
-        else if(date.seconds == 0){
-            val df = SimpleDateFormat(format1)
-            df.format(date)
-        }else {
-            val df = SimpleDateFormat(format2)
-            df.format(date)
-        }
+fun convertDateToString(date: Date): String {
+    val format1 = "MMM dd, yyyy"
+    val format2 = "MMM dd, yyyy, hh:mm aaa"
+    val dateInfinity = Date(MAX_TIME_STAMP)
+    return if (dateInfinity.compareTo(date) == 0) "N/A"
+    else if (date.seconds == 0) {
+        val df = SimpleDateFormat(format1)
+        df.format(date)
+    } else {
+        val df = SimpleDateFormat(format2)
+        df.format(date)
     }
+}
 
 
-fun NotificationManager.sendNotification(dailyTask : DailyTasks, context: Context){
+fun NotificationManager.sendNotification(dailyTask: DailyTasks, context: Context) {
 
     val actionIntent = Intent(context, ActionReceiver::class.java)
-    val actionPending = PendingIntent.getBroadcast(context,88,actionIntent,
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) PendingIntent.FLAG_MUTABLE else 0)
+    val actionPending = PendingIntent.getBroadcast(
+        context, 88, actionIntent,
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) PendingIntent.FLAG_MUTABLE else 0
+    )
 
 
     val intent = Intent(context, MainActivity::class.java)
     val contentIntent =
-        PendingIntent.getActivity(context, NOTIFICATION_DAILY_ID,intent,
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) PendingIntent.FLAG_MUTABLE else 0)
+        PendingIntent.getActivity(
+            context, NOTIFICATION_DAILY_ID, intent,
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) PendingIntent.FLAG_MUTABLE else 0
+        )
 
     val builder = NotificationCompat.Builder(context, channelDailyNotificationID)
         .setContentTitle("Achiever!")
@@ -55,14 +59,14 @@ fun NotificationManager.sendNotification(dailyTask : DailyTasks, context: Contex
         .setSmallIcon(R.drawable.ic_favorite_border_black_24dp)
         .setAutoCancel(true)
         .setContentIntent(contentIntent)
-        .addAction(R.drawable.ic_baseline_done_24,"task completed!",actionPending)
+        .addAction(R.drawable.ic_baseline_done_24, "task completed!", actionPending)
         .setPriority(NotificationCompat.PRIORITY_HIGH)
 
 
-    notify(dailyTask.id,builder.build())
+    notify(dailyTask.id, builder.build())
 
 }
 
-fun NotificationManager.cancelAllNotifications(){
+fun NotificationManager.cancelAllNotifications() {
     cancelAll()
 }

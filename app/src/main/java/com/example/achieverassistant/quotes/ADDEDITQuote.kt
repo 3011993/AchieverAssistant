@@ -18,18 +18,18 @@ class ADDEDITQuote : AppCompatActivity() {
     private lateinit var binding: ActivityAddeditquoteBinding
     private lateinit var selectedItems: ArrayList<SelectedItem>
 
-    private lateinit var memberSpinner : String
-    private var memberImage : Int? = null
+    private lateinit var memberSpinner: String
+    private var memberImage: Int? = null
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = DataBindingUtil.setContentView(this,R.layout.activity_addeditquote)
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_addeditquote)
 
         initList()
 
 
-        val adapter = SelectedItemAdapter(this,selectedItems)
+        val adapter = SelectedItemAdapter(this, selectedItems)
 
         binding.spinner.adapter = adapter
 
@@ -42,7 +42,7 @@ class ADDEDITQuote : AppCompatActivity() {
                 id: Long
             ) {
                 val clickedItem: SelectedItem = parent.getItemAtPosition(position) as SelectedItem
-                memberSpinner= clickedItem.member
+                memberSpinner = clickedItem.member
                 memberImage = clickedItem.avatar
 
             }
@@ -81,7 +81,7 @@ class ADDEDITQuote : AppCompatActivity() {
         }
         val saveQuote = Intent()
         saveQuote.putExtra(EXTRA_DATA_MEMBERQUOTE, memberSpinner)
-        saveQuote.putExtra(EXTRA_DATA_IMAGE,memberImage)
+        saveQuote.putExtra(EXTRA_DATA_IMAGE, memberImage)
         saveQuote.putExtra(EXTRA_DATA_QUOTE, quote)
         val id = intent.getIntExtra(EXTRA_DATA_ID_QUOTE, -1)
         if (id != -1) {
@@ -92,18 +92,18 @@ class ADDEDITQuote : AppCompatActivity() {
     }
 
 
-    private fun initList(){
+    private fun initList() {
         selectedItems = ArrayList()
-        selectedItems.add(SelectedItem("select one",0))
-        selectedItems.add(SelectedItem("Family",R.drawable.family))
-        selectedItems.add(SelectedItem("Friends",R.drawable.friends))
-        selectedItems.add(SelectedItem("Lover",R.drawable.lover))
-        selectedItems.add(SelectedItem("Anonymous",R.drawable.anon))
+        selectedItems.add(SelectedItem("select one", 0))
+        selectedItems.add(SelectedItem("Family", R.drawable.family))
+        selectedItems.add(SelectedItem("Friends", R.drawable.friends))
+        selectedItems.add(SelectedItem("Lover", R.drawable.lover))
+        selectedItems.add(SelectedItem("Anonymous", R.drawable.anon))
 
     }
 
-    private fun setSelectionSpinner(value : String){
-        when(value){
+    private fun setSelectionSpinner(value: String) {
+        when (value) {
             getString(R.string.family_item) -> binding.spinner.setSelection(1)
             getString(R.string.friends_item) -> binding.spinner.setSelection(2)
             getString(R.string.lover_item) -> binding.spinner.setSelection(3)

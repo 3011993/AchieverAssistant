@@ -89,7 +89,11 @@ class ADDEDITDailyTasks : AppCompatActivity() {
         val currentTask = binding.edittextCurenttext.text.toString()
         val timeOfTask = binding.edittextTimeCurenttext.text.toString()
         if (currentTask.trim { it <= ' ' }.isEmpty() or timeOfTask.isEmpty()) {
-            Toast.makeText(applicationContext, "please write details of your task!", Toast.LENGTH_LONG).show()
+            Toast.makeText(
+                applicationContext,
+                "please write details of your task!",
+                Toast.LENGTH_LONG
+            ).show()
             return
         }
         val saveData = Intent()
@@ -107,18 +111,20 @@ class ADDEDITDailyTasks : AppCompatActivity() {
 
     //we use this method for make alarm remind the user for his task
 
-    private fun startAlarm(dailyTasks: DailyTasks,calendar: Calendar) {
+    private fun startAlarm(dailyTasks: DailyTasks, calendar: Calendar) {
         val alarmManager = applicationContext.getSystemService(ALARM_SERVICE) as AlarmManager
         val intent = Intent(applicationContext, AlarmReceiver::class.java)
-        intent.putExtra(EXTRA_DAILY_TASK_ALARM,dailyTasks)
-        val pendingIntent = PendingIntent.getBroadcast(applicationContext,dailyTasks.id,intent,
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) PendingIntent.FLAG_MUTABLE else 0)
+        intent.putExtra(EXTRA_DAILY_TASK_ALARM, dailyTasks)
+        val pendingIntent = PendingIntent.getBroadcast(
+            applicationContext, dailyTasks.id, intent,
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) PendingIntent.FLAG_MUTABLE else 0
+        )
 
         if (calendar.before(Calendar.getInstance())) {
             calendar.add(Calendar.DATE, 1)
         }
-        val infoClock = AlarmClockInfo(calendar.timeInMillis,pendingIntent)
-        alarmManager.setAlarmClock(infoClock,pendingIntent)
+        val infoClock = AlarmClockInfo(calendar.timeInMillis, pendingIntent)
+        alarmManager.setAlarmClock(infoClock, pendingIntent)
     }
 
 

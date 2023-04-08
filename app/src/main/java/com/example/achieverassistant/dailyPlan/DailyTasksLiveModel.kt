@@ -8,12 +8,17 @@ import androidx.lifecycle.*
 import com.example.achieverassistant.dailyPlan.models.DailyTasks
 import com.example.achieverassistant.dailyPlan.data.DailyTasksDatabase
 import com.example.achieverassistant.dailyPlan.receivers.AlarmReceiver
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class DailyTasksLiveModel(private val database: DailyTasksDatabase, application: Application) :
+@HiltViewModel
+class DailyTasksLiveModel @Inject constructor(
+    private val database: DailyTasksDatabase,
+    application: Application
+) :
     AndroidViewModel(application) {
-
 
 
     private val context = getApplication<Application>().applicationContext as Application
@@ -67,31 +72,30 @@ class DailyTasksLiveModel(private val database: DailyTasksDatabase, application:
     }
 
 
-
-
     //we use it when the user delete task to cancel alarm cause we don't need to remind him for deleted task
-    private fun cancelNotification(dailyTask : DailyTasks){
+    private fun cancelNotification(dailyTask: DailyTasks) {
         val alarmService = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
         val intent = Intent(context, AlarmReceiver::class.java)
         val pendingIntent =
-            PendingIntent.getBroadcast(context, dailyTask.id, intent,
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) PendingIntent.FLAG_MUTABLE else 0)
+            PendingIntent.getBroadcast(
+                context, dailyTask.id, intent,
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) PendingIntent.FLAG_MUTABLE else 0
+            )
         alarmService.cancel(pendingIntent)
 
     }
 
 
+    class DailyTasksFactory(val database: DailyTasksDatabase, val app: Application) :
+        ViewModelProvider.Factory {
 
-class DailyTasksFactory(val database: DailyTasksDatabase, val app: Application) :
-    ViewModelProvider.Factory {
-
-    override fun <T : ViewModel> create(modelClass: Class<T>): T {
-        if (modelClass.isAssignableFrom(DailyTasksLiveModel::class.java)) {
-            @Suppress("UNCHECKED_CAST")
-            return DailyTasksLiveModel(database, app) as T
+        override fun <T : ViewModel> create(modelClass: Class<T>): T {
+            if (modelClass.isAssignableFrom(DailyTasksLiveModel::class.java)) {
+                @Suppress("UNCHECKED_CAST")
+                return DailyTasksLiveModel(database, app) as T
+            }
+            throw IllegalArgumentException("Unable to construct ViewModel")
         }
-        throw IllegalArgumentException("Unable to construct ViewModel")
     }
 }
-    }
 

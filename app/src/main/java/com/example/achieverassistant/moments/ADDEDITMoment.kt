@@ -14,32 +14,28 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.example.achieverassistant.R
 import com.example.achieverassistant.databinding.ActivityAddeditmomentBinding
-import com.example.achieverassistant.moments.data.TheMoment
-import com.example.achieverassistant.moments.data.getMomentsDatabase
+import dagger.hilt.android.AndroidEntryPoint
 import java.io.IOException
 import java.text.SimpleDateFormat
 import java.util.*
 
 
+@AndroidEntryPoint
 class ADDEDITMoment : AppCompatActivity() {
 
 
     lateinit var file: String
-    lateinit var intf : ExifInterface
+    lateinit var intf: ExifInterface
 
-    lateinit var binding : ActivityAddeditmomentBinding
-     private var orientationInt : Int? = null
+    lateinit var binding: ActivityAddeditmomentBinding
+    private var orientationInt: Int? = null
 
-    val momentsViewModel by viewModels<MomentsViewModel> {
-        val database = getMomentsDatabase(application)
-        MomentsViewModel.MomentsFactory(database,application)
-    }
+    val momentsViewModel by viewModels<MomentsViewModel>()
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = DataBindingUtil.setContentView(this,R.layout.activity_addeditmoment)
-
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_addeditmoment)
 
 
         val data = intent
@@ -59,13 +55,11 @@ class ADDEDITMoment : AppCompatActivity() {
             }
 
 
-
-
             val bitmap = BitmapFactory.decodeFile(data.getStringExtra(Moments.EXTRA_PICTURE_PATH))
             val rotatedBitmap = getRotatedBitmap(bitmap)
             binding.imageviewMoment.setImageBitmap(rotatedBitmap)
 
-        } else if (data.hasExtra(Moments.EXTRA_EDIT_PICTURE_PATH)){
+        } else if (data.hasExtra(Moments.EXTRA_EDIT_PICTURE_PATH)) {
             title = "Edit Your Moment"
             file = data.getStringExtra(Moments.EXTRA_EDIT_PICTURE_PATH).toString()
             ///date of the moment
@@ -75,18 +69,19 @@ class ADDEDITMoment : AppCompatActivity() {
                 //Dispaly dateString. You can do/use it your own way
                 val formattedDate = SimpleDateFormat("EEE, MMM d, ''yy", Locale.US).format(Date())
                 binding.edittextDateMoment.setText(formattedDate)
-                binding.edittextDateMoment.isEnabled= false
+                binding.edittextDateMoment.isEnabled = false
 
             } catch (e: IOException) {
 
                 e.printStackTrace()
             }
 
-            val bitmap = BitmapFactory.decodeFile(data.getStringExtra(Moments.EXTRA_EDIT_PICTURE_PATH))
+            val bitmap =
+                BitmapFactory.decodeFile(data.getStringExtra(Moments.EXTRA_EDIT_PICTURE_PATH))
             val rotatedBitmap = getRotatedBitmap(bitmap)
             binding.imageviewMoment.setImageBitmap(rotatedBitmap)
         }
-        binding.setMoment.setOnClickListener {  recordMoment() }
+        binding.setMoment.setOnClickListener { recordMoment() }
     }
 
 
@@ -116,12 +111,13 @@ class ADDEDITMoment : AppCompatActivity() {
 
 
     //function for get rotated bitmap at the correct position
-    private fun getRotatedBitmap(source: Bitmap) : Bitmap {
-        orientationInt = intf.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_UNDEFINED)
-        val rotatedBitmap = when(orientationInt){
+    private fun getRotatedBitmap(source: Bitmap): Bitmap {
+        orientationInt =
+            intf.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_UNDEFINED)
+        val rotatedBitmap = when (orientationInt) {
             ExifInterface.ORIENTATION_ROTATE_90 -> rotateImage(source, 90F)
-            ExifInterface.ORIENTATION_ROTATE_180 -> rotateImage(source,180F)
-            ExifInterface.ORIENTATION_ROTATE_270 -> rotateImage(source,270F)
+            ExifInterface.ORIENTATION_ROTATE_180 -> rotateImage(source, 180F)
+            ExifInterface.ORIENTATION_ROTATE_270 -> rotateImage(source, 270F)
             ExifInterface.ORIENTATION_NORMAL -> source
             else -> source
         }

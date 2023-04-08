@@ -6,11 +6,17 @@ import androidx.lifecycle.*
 import com.example.achieverassistant.achieverGoal.data.AchieverGoalDatabase
 import com.example.achieverassistant.achieverGoal.models.AchieverGoal
 import com.example.achieverassistant.achieverGoal.models.Steps
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class AchieverGoalViewModel(private val database: AchieverGoalDatabase, application: Application) :
+@HiltViewModel
+class AchieverGoalViewModel @Inject constructor(
+    private val database: AchieverGoalDatabase,
+    application: Application
+) :
     AndroidViewModel(application) {
 
 
@@ -102,7 +108,10 @@ class AchieverGoalViewModel(private val database: AchieverGoalDatabase, applicat
     //this function for open dialog and get new step
 
 
-    class AchieverGoalFactory(val database: AchieverGoalDatabase, val app: Application) :
+    class AchieverGoalFactory @Inject constructor(
+        val database: AchieverGoalDatabase,
+        val app: Application
+    ) :
         ViewModelProvider.Factory {
 
         //maybe will be something wrong here

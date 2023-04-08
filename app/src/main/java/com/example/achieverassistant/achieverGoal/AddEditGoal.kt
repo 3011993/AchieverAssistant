@@ -4,34 +4,26 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.example.achieverassistant.R
 import android.content.Intent
-
 import android.widget.Toast
-
-import android.view.View
 import androidx.activity.viewModels
 import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.viewModels
-import com.example.achieverassistant.achieverGoal.data.getAchieverGoalsDatabase
 import com.example.achieverassistant.achieverGoal.models.AchieverGoal
-import com.example.achieverassistant.achieverGoal.models.Steps
 import com.example.achieverassistant.databinding.ActivityAddeditgoalBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class AddEditGoal : AppCompatActivity() {
 
 
+    private lateinit var binding: ActivityAddeditgoalBinding
 
-    private lateinit var binding : ActivityAddeditgoalBinding
-
-    private val achieverGoalViewModel by viewModels<AchieverGoalViewModel> {
-        val database = getAchieverGoalsDatabase(application)
-        AchieverGoalViewModel.AchieverGoalFactory(database,application)
-    }
+    private val achieverGoalViewModel by viewModels<AchieverGoalViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = DataBindingUtil.setContentView(this,R.layout.activity_addeditgoal)
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_addeditgoal)
 
-        binding.setGoalButton.setOnClickListener {  setButtonMethod() }
+        binding.setGoalButton.setOnClickListener { setButtonMethod() }
 
 
         //responsible for get intent and switch  between Add Task Or Edit task
@@ -56,8 +48,6 @@ class AddEditGoal : AppCompatActivity() {
                 .show()
             return
         }
-
-
 
 
         val achieverGoal = AchieverGoal(achieverGoal = goal, achieverGoalDuration = durationGoal)

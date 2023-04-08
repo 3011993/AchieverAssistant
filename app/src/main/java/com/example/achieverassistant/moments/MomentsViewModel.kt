@@ -4,11 +4,14 @@ import android.app.Application
 import androidx.lifecycle.*
 import com.example.achieverassistant.moments.data.MomentDatabase
 import com.example.achieverassistant.moments.data.TheMoment
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 
-class MomentsViewModel(private val database: MomentDatabase, application: Application) :
+@HiltViewModel
+class MomentsViewModel @Inject constructor(private val database: MomentDatabase, application: Application) :
     AndroidViewModel(application) {
 
 

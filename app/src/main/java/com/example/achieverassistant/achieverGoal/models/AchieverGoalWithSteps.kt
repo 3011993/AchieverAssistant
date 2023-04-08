@@ -9,5 +9,5 @@ data class AchieverGoalWithSteps(
         parentColumn = "achieverGoalId",
         entityColumn = "stepId"
     )
-    val steps : List<Steps>? = null
+    val steps: List<Steps>? = null
 )

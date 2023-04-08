@@ -10,9 +10,10 @@ import com.example.achieverassistant.databinding.CardviewQuotesBinding
 import com.example.achieverassistant.quotes.adapters.RecyclerAdapterForQuotes.QuoteViewHolder.Companion.from
 import com.example.achieverassistant.quotes.data.Quote
 
-class RecyclerAdapterForQuotes(val clickListener : OnQuoteListener) : ListAdapter<Quote, RecyclerAdapterForQuotes.QuoteViewHolder>(
-    diffCallBack
-) {
+class RecyclerAdapterForQuotes(val clickListener: OnQuoteListener) :
+    ListAdapter<Quote, RecyclerAdapterForQuotes.QuoteViewHolder>(
+        diffCallBack
+    ) {
 
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, i: Int): QuoteViewHolder {
@@ -25,42 +26,41 @@ class RecyclerAdapterForQuotes(val clickListener : OnQuoteListener) : ListAdapte
         quoteViewHolder.itemView.setOnClickListener {
             clickListener.onClick(quote)
         }
-        quoteViewHolder.bind(clickListener,quote)
+        quoteViewHolder.bind(clickListener, quote)
 
 
     }
 
-     class QuoteViewHolder(private val binding: CardviewQuotesBinding) :
-         RecyclerView.ViewHolder(binding.root) {
+    class QuoteViewHolder(private val binding: CardviewQuotesBinding) :
+        RecyclerView.ViewHolder(binding.root) {
 
-         fun bind(clickListener: OnQuoteListener, quote: Quote){
-             binding.textviewQuote.text = quote.quote
-             binding.textviewMember.text = quote.quoteMember
-             binding.memberImageView.setImageResource(quote.avatar)
+        fun bind(clickListener: OnQuoteListener, quote: Quote) {
+            binding.textviewQuote.text = quote.quote
+            binding.textviewMember.text = quote.quoteMember
+            binding.memberImageView.setImageResource(quote.avatar)
 
-             binding.quote = quote
-             binding.clickListener = clickListener
-             binding.executePendingBindings()
+            binding.quote = quote
+            binding.clickListener = clickListener
+            binding.executePendingBindings()
 
 
+        }
 
-         }
+        companion object {
+            fun from(viewGroup: ViewGroup): QuoteViewHolder {
+                val layoutInflater = LayoutInflater.from(viewGroup.context)
+                val binding = CardviewQuotesBinding.inflate(layoutInflater, viewGroup, false)
+                return QuoteViewHolder(binding)
 
-         companion object {
-             fun from(viewGroup: ViewGroup) : QuoteViewHolder {
-                 val layoutInflater = LayoutInflater.from(viewGroup.context)
-                 val binding = CardviewQuotesBinding.inflate(layoutInflater, viewGroup, false)
-                 return QuoteViewHolder(binding)
-
-             }
-         }
-     }
+            }
+        }
+    }
 
     fun getItemAt(position: Int): Quote? {
         return getItem(position)
     }
 
-    class OnQuoteListener(val clickListener: (quote : Quote) -> Unit) {
+    class OnQuoteListener(val clickListener: (quote: Quote) -> Unit) {
         fun onClick(quote: Quote) = clickListener(quote)
     }
 

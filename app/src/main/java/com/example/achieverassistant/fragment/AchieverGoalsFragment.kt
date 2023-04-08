@@ -1,9 +1,7 @@
 package com.example.achieverassistant.fragment
 
 
-import android.annotation.SuppressLint
 import android.app.Activity
-import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -13,30 +11,26 @@ import androidx.activity.result.contract.ActivityResultContracts.StartActivityFo
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
-import androidx.recyclerview.widget.ItemTouchHelper
-import androidx.recyclerview.widget.RecyclerView
 import com.example.achieverassistant.R
 import com.example.achieverassistant.achieverGoal.*
 import com.example.achieverassistant.achieverGoal.adapters.RecyclerAdapterForAchieverGoal
-import com.example.achieverassistant.achieverGoal.data.getAchieverGoalsDatabase
 import com.example.achieverassistant.achieverGoal.dialogs.DialogRemoveGoal
 import com.example.achieverassistant.achieverGoal.dialogs.DialogShowNewStep
 import com.example.achieverassistant.achieverGoal.interfaces.ItemListenerInterface
 import com.example.achieverassistant.achieverGoal.models.AchieverGoal
 import com.example.achieverassistant.achieverGoal.models.Steps
 import com.example.achieverassistant.databinding.AchieverGoalsLayoutBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class AchieverGoalsFragment : Fragment(), ItemListenerInterface {
 
 
     lateinit var recyclerAdapterForAchieverGoal: RecyclerAdapterForAchieverGoal
     private lateinit var binding: AchieverGoalsLayoutBinding
 
-    private val achieverGoalViewModel by viewModels<AchieverGoalViewModel> {
-        val database = getAchieverGoalsDatabase(requireActivity().application)
-        AchieverGoalViewModel.AchieverGoalFactory(database, requireActivity().application)
-    }
+
+    private val achieverGoalViewModel by viewModels<AchieverGoalViewModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -55,7 +49,6 @@ class AchieverGoalsFragment : Fragment(), ItemListenerInterface {
 
         val clickListener =
             RecyclerAdapterForAchieverGoal.OnAchieverGoalListener({ steps ->
-                Toast.makeText(requireContext(), "AddStep", Toast.LENGTH_SHORT).show()
                 val showNewStep = DialogShowNewStep()
                 showNewStep.show(childFragmentManager, "add new Step dialog")
 
@@ -122,7 +115,10 @@ class AchieverGoalsFragment : Fragment(), ItemListenerInterface {
                 return@registerForActivityResult
             } else {
                 val data = result.data
-                val requestGoalEdit = result.data!!.getIntExtra(getString(R.string.requestCodeAchiever), edit_goal_request)
+                val requestGoalEdit = result.data!!.getIntExtra(
+                    getString(R.string.requestCodeAchiever),
+                    edit_goal_request
+                )
                 if (result.resultCode == requestGoalEdit && result.resultCode == Activity.RESULT_OK) {
                     val id = data!!.getIntExtra(AddEditGoal.EXTRA_DATA_ID_GOAL, -1)
                     if (id == -1) {

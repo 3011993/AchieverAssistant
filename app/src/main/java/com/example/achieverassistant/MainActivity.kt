@@ -15,7 +15,9 @@ import com.example.achieverassistant.moments.Moments
 import com.example.achieverassistant.quotes.Quotes
 import com.example.achieverassistant.habits.Habits
 import com.google.android.material.tabs.TabLayoutMediator
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     //Variable for creating drawer layout and organize it
     lateinit var drawerLayout: DrawerLayout

@@ -9,6 +9,8 @@ import com.example.achieverassistant.dailyPlan.data.DailyDAO
 import com.example.achieverassistant.dailyPlan.data.DailyTasksDatabase
 import com.example.achieverassistant.moments.data.MomentDAO
 import com.example.achieverassistant.moments.data.MomentDatabase
+import com.example.achieverassistant.quotes.data.QuoteDAO
+import com.example.achieverassistant.quotes.data.QuoteDatabase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -51,6 +53,16 @@ object HiltModule {
     fun provideMomentsDatabase(@ApplicationContext appContext: Context) : MomentDatabase {
         return Room.databaseBuilder(appContext,
             MomentDatabase::class.java, "MomentsDatabase").build()
+    }
+    @Provides
+    fun provideQuotesDao(database : QuoteDatabase) : QuoteDAO{
+        return database.quoteDAO()
+    }
+
+    @Provides
+    fun provideQuotesDatabase(@ApplicationContext appContext: Context) : QuoteDatabase {
+        return Room.databaseBuilder(appContext,
+            QuoteDatabase::class.java, "quotesDatabase").build()
     }
 
 

@@ -28,7 +28,6 @@ interface AchieverGoalDAO {
     suspend fun getAllGoals(id: Int): List<AchieverGoalWithSteps>
 
 
-
     @Insert
     fun insertStep(steps: Steps)
 
@@ -43,5 +42,5 @@ interface AchieverGoalDAO {
 
     @Query("SELECT * FROM Steps")
     fun getAllSteps(): Flow<List<Steps>>
-    }
+}
 

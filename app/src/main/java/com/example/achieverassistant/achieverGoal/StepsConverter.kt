@@ -8,12 +8,13 @@ import com.google.gson.reflect.TypeToken
 class StepsConverter {
 
     @TypeConverter
-    fun stepsToString(value : ArrayList<Steps?>?) : String{
+    fun stepsToString(value: ArrayList<Steps?>?): String {
         return Gson().toJson(value)
     }
 
     @TypeConverter
     fun stringToSteps(value: String): ArrayList<Steps?>? {
-        val listType = object : TypeToken<ArrayList<Steps?>?>(){}.type
-        return Gson().fromJson(value,listType)    }
+        val listType = object : TypeToken<ArrayList<Steps?>?>() {}.type
+        return Gson().fromJson(value, listType)
+    }
 }

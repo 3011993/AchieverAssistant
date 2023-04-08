@@ -8,6 +8,7 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 @Entity
-data class Steps ( var step : String) : Parcelable{
-    @PrimaryKey(autoGenerate = true) var stepId : Int = 0 
+data class Steps(var step: String) : Parcelable {
+    @PrimaryKey(autoGenerate = true)
+    var stepId: Int = 0
 }

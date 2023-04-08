@@ -8,8 +8,8 @@ import androidx.recyclerview.widget.ListAdapter
 import com.example.achieverassistant.dailyPlan.models.DailyTasks
 import com.example.achieverassistant.databinding.CardviewForDailyplanBinding
 
-class RecyclerViewForDailyPlan(private val clickListener: OnDailyTasksListener) : ListAdapter<DailyTasks, RecyclerViewForDailyPlan.DailyViewHolder>(DIFF_CALL_BACK) {
-
+class RecyclerViewForDailyPlan(private val clickListener: OnDailyTasksListener) :
+    ListAdapter<DailyTasks, RecyclerViewForDailyPlan.DailyViewHolder>(DIFF_CALL_BACK) {
 
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, i: Int): DailyViewHolder {
@@ -18,34 +18,35 @@ class RecyclerViewForDailyPlan(private val clickListener: OnDailyTasksListener) 
 
     override fun onBindViewHolder(dailyViewHolder: DailyViewHolder, position: Int) {
         val currentTask = getItem(position)
-        dailyViewHolder.bind(clickListener,currentTask)
+        dailyViewHolder.bind(clickListener, currentTask)
 
     }
 
-     class DailyViewHolder(private val binding : CardviewForDailyplanBinding) :
-         RecyclerView.ViewHolder(binding.root) {
+    class DailyViewHolder(private val binding: CardviewForDailyplanBinding) :
+        RecyclerView.ViewHolder(binding.root) {
 
 
-         fun bind (clickListener: OnDailyTasksListener, dailyTasks: DailyTasks){
-             binding.dailyTask = dailyTasks
-             binding.clickListener = clickListener
-             binding.textOfCurrenttask.text = dailyTasks.currentTask
-             binding.textOfTimeOfCurrenttask.text = dailyTasks.currentTextTime
+        fun bind(clickListener: OnDailyTasksListener, dailyTasks: DailyTasks) {
+            binding.dailyTask = dailyTasks
+            binding.clickListener = clickListener
+            binding.textOfCurrenttask.text = dailyTasks.currentTask
+            binding.textOfTimeOfCurrenttask.text = dailyTasks.currentTextTime
 
-             binding.editImageTask.setOnClickListener{
-                 clickListener.onEDitClicked(dailyTasks)
-             }
-             binding.deleteImageTask.setOnClickListener{
-                 clickListener.onDeleteClicked(dailyTasks)
-             }
+            binding.editImageTask.setOnClickListener {
+                clickListener.onEDitClicked(dailyTasks)
+            }
+            binding.deleteImageTask.setOnClickListener {
+                clickListener.onDeleteClicked(dailyTasks)
+            }
 
-             binding.executePendingBindings()
+            binding.executePendingBindings()
 
-         }
-        companion object{
+        }
+
+        companion object {
             fun from(viewGroup: ViewGroup): DailyViewHolder {
                 val layoutInflater = LayoutInflater.from(viewGroup.context)
-                val binding = CardviewForDailyplanBinding.inflate(layoutInflater,viewGroup,false)
+                val binding = CardviewForDailyplanBinding.inflate(layoutInflater, viewGroup, false)
                 return DailyViewHolder(binding)
             }
         }
@@ -56,9 +57,11 @@ class RecyclerViewForDailyPlan(private val clickListener: OnDailyTasksListener) 
     }
 
 
-     class OnDailyTasksListener(val clickListener: (dailyTasks: DailyTasks) -> Unit,
-                                val clickListener1: (dailyTasks: DailyTasks) -> Unit) {
-        fun onEDitClicked(dailyTasks : DailyTasks) = clickListener(dailyTasks)
+    class OnDailyTasksListener(
+        val clickListener: (dailyTasks: DailyTasks) -> Unit,
+        val clickListener1: (dailyTasks: DailyTasks) -> Unit
+    ) {
+        fun onEDitClicked(dailyTasks: DailyTasks) = clickListener(dailyTasks)
         fun onDeleteClicked(dailyTasks: DailyTasks) = clickListener1(dailyTasks)
 
     }

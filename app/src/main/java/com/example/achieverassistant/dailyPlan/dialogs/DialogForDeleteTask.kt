@@ -8,15 +8,13 @@ import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.viewModels
 import com.example.achieverassistant.dailyPlan.DailyTasksLiveModel
 import com.example.achieverassistant.dailyPlan.models.DailyTasks
-import com.example.achieverassistant.dailyPlan.data.getDatabaseDailyDatabase
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class DialogForDeleteTask(val dailyTasks: DailyTasks) : DialogFragment() {
 
 
-    private val dailyTasksViewModel by viewModels<DailyTasksLiveModel> {
-        val database = getDatabaseDailyDatabase(requireActivity().application)
-        DailyTasksLiveModel.DailyTasksFactory(database,requireActivity().application)
-    }
+    private val dailyTasksViewModel by viewModels<DailyTasksLiveModel>()
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
 
 
@@ -33,6 +31,6 @@ class DialogForDeleteTask(val dailyTasks: DailyTasks) : DialogFragment() {
             Toast.makeText(activity, "Task is Not Deleted", Toast.LENGTH_SHORT).show()
             //here to observe daily tasks
         }
-        return  alert.create()
-            }
+        return alert.create()
+    }
 }

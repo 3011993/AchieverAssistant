@@ -7,15 +7,14 @@ import android.widget.Toast
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.viewModels
 import com.example.achieverassistant.dailyPlan.DailyTasksLiveModel
-import com.example.achieverassistant.dailyPlan.data.getDatabaseDailyDatabase
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class DialogForDeleteAllTasks : DialogFragment() {
 
 
-    private val dailyTasksViewModel by viewModels<DailyTasksLiveModel> {
-        val database = getDatabaseDailyDatabase(requireActivity().application)
-        DailyTasksLiveModel.DailyTasksFactory(database,requireActivity().application)
-    }
+    private val dailyTasksViewModel by viewModels<DailyTasksLiveModel>()
+
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
 
         val alert = AlertDialog.Builder(context)
