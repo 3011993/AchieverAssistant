@@ -14,9 +14,12 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.result.contract.ActivityResultContracts.StartActivityForResult
 import androidx.core.content.PermissionChecker
 import androidx.core.content.PermissionChecker.checkSelfPermission
+import androidx.core.view.MenuHost
+import androidx.core.view.MenuProvider
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
 import com.example.achieverassistant.*
 import com.example.achieverassistant.dailyPlan.*
 import com.example.achieverassistant.dailyPlan.dialogs.DialogForDeleteAllTasks
@@ -81,7 +84,22 @@ class DailyTasksFragment : Fragment() {
 
         createNotificationRight()
 
-        setHasOptionsMenu(true)
+        val menuHost : MenuHost = requireActivity()
+
+        menuHost.addMenuProvider(object : MenuProvider {
+            override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
+                menuInflater.inflate(R.menu.daily_tasks_menu, menu)
+            }
+
+            override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
+                when (menuItem.itemId) {
+                    R.id.deleteAllTasks -> deleteAllTasksWithDialog()
+                }
+                return true
+            }
+        },viewLifecycleOwner, Lifecycle.State.RESUMED)
+
+
 
         return binding.root
     }
@@ -140,18 +158,7 @@ class DailyTasksFragment : Fragment() {
             }
         }
 
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.daily_tasks_menu, menu)
-        super.onCreateOptionsMenu(menu, inflater)
-    }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            R.id.deleteAllTasks -> deleteAllTasksWithDialog()
-        }
-        return super.onOptionsItemSelected(item)
-
-    }
 
     private fun createChannel(channelId: String, channelName: String) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {

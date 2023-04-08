@@ -8,9 +8,12 @@ import android.util.Log
 import android.view.*
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts.StartActivityForResult
+import androidx.core.view.MenuHost
+import androidx.core.view.MenuProvider
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
 import com.example.achieverassistant.R
 import com.example.achieverassistant.achieverGoal.*
 import com.example.achieverassistant.achieverGoal.adapters.RecyclerAdapterForAchieverGoal
@@ -26,7 +29,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class AchieverGoalsFragment : Fragment(), ItemListenerInterface {
 
 
-    lateinit var recyclerAdapterForAchieverGoal: RecyclerAdapterForAchieverGoal
+    private lateinit var recyclerAdapterForAchieverGoal: RecyclerAdapterForAchieverGoal
     private lateinit var binding: AchieverGoalsLayoutBinding
 
 
@@ -36,7 +39,7 @@ class AchieverGoalsFragment : Fragment(), ItemListenerInterface {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
 
         binding =
             DataBindingUtil.inflate(inflater, R.layout.achiever_goals_layout, container, false)
@@ -47,8 +50,9 @@ class AchieverGoalsFragment : Fragment(), ItemListenerInterface {
             startActivity(intent)
         }
 
+        //use this function to submit list inside child recycler view
         val clickListener =
-            RecyclerAdapterForAchieverGoal.OnAchieverGoalListener({ steps ->
+            RecyclerAdapterForAchieverGoal.OnAchieverGoalListener({
                 val showNewStep = DialogShowNewStep()
                 showNewStep.show(childFragmentManager, "add new Step dialog")
 
@@ -86,27 +90,27 @@ class AchieverGoalsFragment : Fragment(), ItemListenerInterface {
         }
 
 
+        val menuHost : MenuHost = requireActivity()
 
-        setHasOptionsMenu(true)
+        menuHost.addMenuProvider(object : MenuProvider{
+            override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
+                menuInflater.inflate(R.menu.achiever_goal_menu, menu)
+            }
+
+            override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
+                when (menuItem.itemId) {
+                    R.id.deleteAllGoals -> {
+                        achieverGoalViewModel.deleteAllGoals()
+                    }
+                }
+                return true
+            }
+        },viewLifecycleOwner,Lifecycle.State.RESUMED)
+
 
         return binding.root
     }
 
-
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.achiever_goal_menu, menu)
-        super.onCreateOptionsMenu(menu, inflater)
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            R.id.deleteAllGoals -> {
-                achieverGoalViewModel.deleteAllGoals()
-            }
-        }
-        return super.onOptionsItemSelected(item)
-
-    }
 
 
     private val editActivityLauncher =
