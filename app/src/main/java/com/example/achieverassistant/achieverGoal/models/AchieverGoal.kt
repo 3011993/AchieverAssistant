@@ -14,7 +14,7 @@ data class AchieverGoal(
 
     var achieverGoal: String,
     var achieverGoalDuration: String,
-    val steps : ArrayList<Steps?>?
+    val steps : ArrayList<Steps?>? = null
 
 ) : Parcelable {
     @PrimaryKey(autoGenerate = true) var achieverGoalId: Int = 0

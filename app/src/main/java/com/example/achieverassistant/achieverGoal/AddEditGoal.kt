@@ -57,13 +57,10 @@ class AddEditGoal : AppCompatActivity() {
             return
         }
 
-        achieverGoalViewModel.insertStep(Steps(step =  stepsGoal))
-        val list = ArrayList<Steps?>()
-        list.add(Steps(step = stepsGoal))
 
 
 
-        val achieverGoal = AchieverGoal(goal,durationGoal,list)
+        val achieverGoal = AchieverGoal(achieverGoal = goal, achieverGoalDuration = durationGoal)
         achieverGoalViewModel.insertGoal(achieverGoal)
         Toast.makeText(application, "Goal Added", Toast.LENGTH_SHORT).show()
 

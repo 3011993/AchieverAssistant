@@ -45,13 +45,10 @@ class RecyclerAdapterForAchieverGoal(val clickListener: OnAchieverGoalListener,
             val adapter = RecyclerAdapterForSteps(itemListenerInterface)
 
 
-            println("try stasth things ")
-            println("new brach")
 
 
             binding.recyclerSteps.adapter = adapter
             adapter.submitList(achieverGoal.steps)
-            adapter.notifyDataSetChanged()
 
             binding.addStepImageView.setOnClickListener{
                 clickListener.addStep(achieverGoal.steps)

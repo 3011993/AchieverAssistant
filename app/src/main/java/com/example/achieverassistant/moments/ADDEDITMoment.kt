@@ -8,11 +8,14 @@ import androidx.exifinterface.media.ExifInterface
 import android.os.Build
 import android.os.Bundle
 import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.example.achieverassistant.R
 import com.example.achieverassistant.databinding.ActivityAddeditmomentBinding
+import com.example.achieverassistant.moments.data.TheMoment
+import com.example.achieverassistant.moments.data.getMomentsDatabase
 import java.io.IOException
 import java.text.SimpleDateFormat
 import java.util.*
@@ -26,6 +29,11 @@ class ADDEDITMoment : AppCompatActivity() {
 
     lateinit var binding : ActivityAddeditmomentBinding
      private var orientationInt : Int? = null
+
+    val momentsViewModel by viewModels<MomentsViewModel> {
+        val database = getMomentsDatabase(application)
+        MomentsViewModel.MomentsFactory(database,application)
+    }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -91,6 +99,8 @@ class ADDEDITMoment : AppCompatActivity() {
                 .show()
             return
         }
+
+
         val saveMomentIntent = Intent()
         saveMomentIntent.putExtra(EXTRA_DATA_IMAGE_MOMENT, file)
         saveMomentIntent.putExtra(EXTRA_DATA_TITLE, nameOfMoment)
@@ -105,6 +115,7 @@ class ADDEDITMoment : AppCompatActivity() {
     }
 
 
+    //function for get rotated bitmap at the correct position
     private fun getRotatedBitmap(source: Bitmap) : Bitmap {
         orientationInt = intf.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_UNDEFINED)
         val rotatedBitmap = when(orientationInt){
@@ -117,6 +128,7 @@ class ADDEDITMoment : AppCompatActivity() {
         return rotatedBitmap!!
     }
 
+    // function to rotate image at the right angel
     private fun rotateImage(source: Bitmap, angle: Float): Bitmap? {
         val matrix = Matrix()
         matrix.postRotate(angle)

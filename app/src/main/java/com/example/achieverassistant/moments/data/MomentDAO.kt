@@ -14,9 +14,9 @@ interface MomentDAO {
     @Delete
     fun deleteMoment(theMoment: TheMoment?)
 
-    @Query("DELETE FROM moments_table")
+    @Query("DELETE FROM TheMoment")
     fun deleteAllMoments()
 
-    @Query("SELECT * FROM moments_table")
+    @Query("SELECT * FROM TheMoment")
     fun getAllMoments(): Flow<List<TheMoment>>
 }

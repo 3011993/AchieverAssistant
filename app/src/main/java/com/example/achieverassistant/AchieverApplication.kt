@@ -1,13 +1,7 @@
 package com.example.achieverassistant
 
 import android.app.Application
+import dagger.hilt.android.HiltAndroidApp
 
-class AchieverApplication : Application() {
-
-
-    override fun onCreate() {
-        super.onCreate()
-
-    }
-
-}
+@HiltAndroidApp
+class AchieverApplication : Application()

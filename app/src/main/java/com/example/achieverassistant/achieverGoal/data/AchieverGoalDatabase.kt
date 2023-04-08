@@ -12,7 +12,6 @@ import com.example.achieverassistant.achieverGoal.models.Steps
 abstract class AchieverGoalDatabase : RoomDatabase() {
 
     abstract fun achieverGoalDAO(): AchieverGoalDAO
-    abstract fun stepsDao(): StepsDao
 
 }
 

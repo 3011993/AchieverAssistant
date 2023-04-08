@@ -7,7 +7,7 @@ import androidx.room.RoomDatabase
 import androidx.room.Room
 import com.example.achieverassistant.moments.data.MomentDAO
 
-@Database(entities = [TheMoment::class], version = 2, exportSchema = false)
+@Database(entities = [TheMoment::class], version = 1, exportSchema = false)
 abstract class MomentDatabase : RoomDatabase() {
     abstract fun momentDAO(): MomentDAO
 
@@ -23,7 +23,7 @@ fun getMomentsDatabase(context: Context) : MomentDatabase {
                     context.applicationContext,
                     MomentDatabase::class.java,
                     "MomentsDatabase"
-                ).fallbackToDestructiveMigration().build()
+                ).build()
         }
         return INSTANCE
     }
