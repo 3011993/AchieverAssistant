@@ -192,12 +192,6 @@ class DailyTasksFragment : Fragment() {
                         showSettingDialog()
                     }
                 }
-            } else {
-                Toast.makeText(
-                    requireActivity(),
-                    "notification Permission Granted",
-                    Toast.LENGTH_SHORT
-                ).show()
             }
         }
 
