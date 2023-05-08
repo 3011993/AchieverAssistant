@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "788474998911",
+    "project_id": "achieverassistant-a8614",
+    "storage_bucket": "achieverassistant-a8614.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:788474998911:android:3f0fc66b08742d5bc3cf4a",
+        "android_client_info": {
+          "package_name": "com.example.achieverassistant"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "788474998911-8vef8936prhj44narqr9i21tm62t76om.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDkImCS9YQjlJtKwpjx85R1VUnmC5fVPcQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "788474998911-8vef8936prhj44narqr9i21tm62t76om.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

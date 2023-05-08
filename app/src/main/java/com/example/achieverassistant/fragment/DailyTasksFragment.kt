@@ -27,6 +27,7 @@ import com.example.achieverassistant.dailyPlan.dialogs.DialogForDeleteTask
 import com.example.achieverassistant.databinding.DailyTasksLayoutBinding
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import dagger.hilt.android.AndroidEntryPoint
+import java.lang.RuntimeException
 import com.example.achieverassistant.dailyPlan.models.DailyTasks as DailyTasks1
 
 @AndroidEntryPoint
@@ -73,6 +74,7 @@ class DailyTasksFragment : Fragment() {
         }
 
         binding.buttonAddNewTask.setOnClickListener {
+
             val intent = Intent(activity, ADDEDITDailyTasks::class.java)
             addActivityResultLauncher.launch(intent)
         }
