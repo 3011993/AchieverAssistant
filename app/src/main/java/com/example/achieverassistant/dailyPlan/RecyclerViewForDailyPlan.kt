@@ -30,7 +30,7 @@ class RecyclerViewForDailyPlan(private val clickListener: OnDailyTasksListener) 
             binding.dailyTask = dailyTasks
             binding.clickListener = clickListener
             binding.textOfCurrenttask.text = dailyTasks.currentTask
-            binding.textOfTimeOfCurrenttask.text = dailyTasks.currentTextTime
+            binding.textOfTimeOfCurrenttask.text = convertDateToString(dailyTasks.currentTextTime)
 
             binding.editImageTask.setOnClickListener {
                 clickListener.onEDitClicked(dailyTasks)

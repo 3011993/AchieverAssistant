@@ -1,6 +1,5 @@
 package com.example.achieverassistant.dailyPlan
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.example.achieverassistant.R
 import android.content.Intent
@@ -8,22 +7,24 @@ import android.app.TimePickerDialog
 
 import android.graphics.drawable.ColorDrawable
 import android.widget.Toast
-import android.app.AlarmManager
-import android.app.AlarmManager.AlarmClockInfo
-import android.app.PendingIntent
 import android.graphics.Color
-import android.os.Build
+import androidx.activity.viewModels
 
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.FragmentActivity
 import com.example.achieverassistant.dailyPlan.models.DailyTasks
-import com.example.achieverassistant.dailyPlan.receivers.AlarmReceiver
 import com.example.achieverassistant.databinding.ActivityAddeditdailyTasksBinding
+
+import dagger.hilt.android.AndroidEntryPoint
 import java.util.*
 
-class ADDEDITDailyTasks : AppCompatActivity() {
+@AndroidEntryPoint
+class ADDEDITDailyTasks : FragmentActivity() {
 
     private lateinit var binding: ActivityAddeditdailyTasksBinding
-    //Variables for Edittext and Buttons
+
+    private val dailyTasksLiveModel by viewModels<DailyTasksLiveModel>()
+    private  var dailyTasks = DailyTasks("", Date(MAX_TIME_STAMP))
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,6 +47,8 @@ class ADDEDITDailyTasks : AppCompatActivity() {
             title = "Add New Task"
         }
     }
+
+
 
     //methods for edit text for time onclickListener
     private fun createCalendar() {
@@ -71,6 +74,7 @@ class ADDEDITDailyTasks : AppCompatActivity() {
                 val hours = if (c[Calendar.HOUR] == 0) "12" else Integer.toString(
                     c[Calendar.HOUR]
                 )
+                dailyTasks.currentTextTime = c.time
                 //this is make edittext get the time
                 binding.edittextTimeCurenttext.setText("$hours:$minute $AM_PM")
                 //this for start alarm
@@ -79,6 +83,7 @@ class ADDEDITDailyTasks : AppCompatActivity() {
             minute,
             false
         )
+
         tP.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         tP.show()
     }
@@ -96,8 +101,15 @@ class ADDEDITDailyTasks : AppCompatActivity() {
             ).show()
             return
         }
+
+        dailyTasks.currentTask = currentTask
+
+        dailyTasksLiveModel.insertDailyTask(dailyTasks)
+
+
         val saveData = Intent()
         saveData.putExtra(EXTRA_DATA_CURRENT_TEXT, currentTask)
+        //need to change to send date not string
         saveData.putExtra(EXTRA_DATA_TIME_CURRENT_TEXT, timeOfTask)
 
         //this code for managing ID
@@ -109,28 +121,13 @@ class ADDEDITDailyTasks : AppCompatActivity() {
         finish()
     }
 
-    //we use this method for make alarm remind the user for his task
 
-    private fun startAlarm(dailyTasks: DailyTasks, calendar: Calendar) {
-        val alarmManager = applicationContext.getSystemService(ALARM_SERVICE) as AlarmManager
-        val intent = Intent(applicationContext, AlarmReceiver::class.java)
-        intent.putExtra(EXTRA_DAILY_TASK_ALARM, dailyTasks)
-        val pendingIntent = PendingIntent.getBroadcast(
-            applicationContext, dailyTasks.id, intent,
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) PendingIntent.FLAG_MUTABLE else 0
-        )
 
-        if (calendar.before(Calendar.getInstance())) {
-            calendar.add(Calendar.DATE, 1)
-        }
-        val infoClock = AlarmClockInfo(calendar.timeInMillis, pendingIntent)
-        alarmManager.setAlarmClock(infoClock, pendingIntent)
-    }
 
 
     companion object {
         //Variables For Intent and Save Data
-        const val EXTRA_DAILY_TASK_ALARM = "com.mooth.achieverassistant.dailytaskts.alarm"
+        const val EXTRA_DAILY_TASK_ALARM = "com.mooth.achieverassistant.dailytasks.alarm"
         const val EXTRA_DATA_ID_CURRENT_TASK = "com.mooth.achieverassistant.dailytasks.idtask"
         const val EXTRA_DATA_CURRENT_TEXT = "com.mooth.achieverassistant.dailytasks.currenttext"
         const val EXTRA_DATA_TIME_CURRENT_TEXT = "com.mooth.achieverassistant.dailytasks.timetask"

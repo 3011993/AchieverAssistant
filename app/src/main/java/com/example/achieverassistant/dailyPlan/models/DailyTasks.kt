@@ -8,7 +8,7 @@ import java.util.Date
 
 @Entity
 @Parcelize
-data class DailyTasks(var currentTask: String, var currentTextTime: String) : Parcelable {
+data class DailyTasks(var currentTask: String, var currentTextTime: Date) : Parcelable {
     @PrimaryKey(autoGenerate = true)
     var id = 0
 }

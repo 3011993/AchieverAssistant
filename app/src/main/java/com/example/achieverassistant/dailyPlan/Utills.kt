@@ -23,8 +23,8 @@ const val MAX_TIME_STAMP = 8640000000000000
 
 
 fun convertDateToString(date: Date): String {
-    val format1 = "MMM dd, yyyy"
-    val format2 = "MMM dd, yyyy, hh:mm aaa"
+    val format1 = "hh:mm aaa"
+    val format2 = "hh:mm aaa"
     val dateInfinity = Date(MAX_TIME_STAMP)
     return if (dateInfinity.compareTo(date) == 0) "N/A"
     else if (date.seconds == 0) {

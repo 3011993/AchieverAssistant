@@ -10,7 +10,7 @@
     <string name="drawer_goals_group">Goals Tasks</string>
     <string name="drawer_daily_item">Daily current task</string>
     <string name="drawer_goals_item">Goal item</string>
-    <string name ="add_new_goal" >Add new Step</string>
+    <string name="add_new_goal">Add new Step</string>
 
 
     <string name="daily_tasks">daily tasks</string>
@@ -29,5 +29,7 @@
     <string name="family_item">Family</string>
     <string name="lover_item">Lover</string>
     <string name="anon_item">Anonymous</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>

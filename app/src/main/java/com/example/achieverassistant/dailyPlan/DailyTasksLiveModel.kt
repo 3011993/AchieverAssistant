@@ -4,6 +4,7 @@ import android.app.*
 import android.content.Context
 import android.content.Intent
 import android.os.Build
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.*
 import com.example.achieverassistant.dailyPlan.models.DailyTasks
 import com.example.achieverassistant.dailyPlan.data.DailyTasksDatabase
@@ -11,6 +12,7 @@ import com.example.achieverassistant.dailyPlan.receivers.AlarmReceiver
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import java.util.Calendar
 import javax.inject.Inject
 
 @HiltViewModel
@@ -38,6 +40,7 @@ class DailyTasksLiveModel @Inject constructor(
     fun insertDailyTask(dailyTasks: DailyTasks) {
         viewModelScope.launch(Dispatchers.IO) {
             database.dailyDAO().insert(dailyTasks)
+            startAlarm(dailyTasks)
         }
 
     }
@@ -71,6 +74,19 @@ class DailyTasksLiveModel @Inject constructor(
         }
     }
 
+    private fun startAlarm(dailyTasks: DailyTasks) {
+        val alarmManager = context.getSystemService(AppCompatActivity.ALARM_SERVICE) as AlarmManager
+        val intent = Intent(context, AlarmReceiver::class.java)
+        intent.putExtra(ADDEDITDailyTasks.EXTRA_DAILY_TASK_ALARM, dailyTasks)
+        val pendingIntent = PendingIntent.getBroadcast(
+            context, dailyTasks.id, intent,
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) PendingIntent.FLAG_MUTABLE else 0
+        )
+
+
+        val infoClock = AlarmManager.AlarmClockInfo(dailyTasks.currentTextTime.time, pendingIntent)
+        alarmManager.setAlarmClock(infoClock, pendingIntent)
+    }
 
     //we use it when the user delete task to cancel alarm cause we don't need to remind him for deleted task
     private fun cancelNotification(dailyTask: DailyTasks) {
@@ -86,7 +102,7 @@ class DailyTasksLiveModel @Inject constructor(
     }
 
 
-    class DailyTasksFactory(val database: DailyTasksDatabase, val app: Application) :
+    class DailyTasksFactory @Inject constructor(val database: DailyTasksDatabase, val app: Application) :
         ViewModelProvider.Factory {
 
         override fun <T : ViewModel> create(modelClass: Class<T>): T {

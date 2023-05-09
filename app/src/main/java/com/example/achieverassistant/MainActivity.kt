@@ -10,7 +10,11 @@ import android.content.Intent
 import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.widget.Toolbar
+import androidx.databinding.DataBindingUtil
+import androidx.navigation.NavController
+import androidx.navigation.findNavController
 import androidx.viewpager2.widget.ViewPager2
+import com.example.achieverassistant.databinding.ActivityMainBinding
 import com.example.achieverassistant.moments.Moments
 import com.example.achieverassistant.quotes.Quotes
 import com.example.achieverassistant.habits.Habits
@@ -19,46 +23,33 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
-    //Variable for creating drawer layout and organize it
-    lateinit var drawerLayout: DrawerLayout
-    lateinit var actionBarDrawerToggle: ActionBarDrawerToggle
-    lateinit var navigationView: NavigationView
+    private lateinit var binding: ActivityMainBinding
 
-    //Variable for toolbar and tablayout
-    lateinit var toolbar: Toolbar
-    lateinit var tabLayout: TabLayout
+    //Variable for creating drawer layout and organize it
+    lateinit var actionBarDrawerToggle: ActionBarDrawerToggle
 
     //Variables for view Pager and switching between fragments
-    private lateinit var viewPager: ViewPager2
     private lateinit var viewPagerAdapter: ViewPagerAdapter
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
 
-        //define the variables for Drawer Layout
-        drawerLayout = findViewById(R.id.drawer_layout)
-        navigationView = findViewById(R.id.navigation_for_app)
 
-        //define the variables for view pager
-        viewPager = findViewById(R.id.viewpager)
         viewPagerAdapter = ViewPagerAdapter(this)
-        viewPager.adapter = viewPagerAdapter
+        binding.viewpager.adapter = viewPagerAdapter
 
-
-        //define the toolbar varaibles and tabs
-        toolbar = findViewById(R.id.tool_bar_id)
-        tabLayout = findViewById(R.id.tabs)
-        val dailyTasks = tabLayout.newTab()
-        val achieverGoals = tabLayout.newTab()
-        tabLayout.addTab(dailyTasks, 0)
-        tabLayout.addTab(achieverGoals, 1)
+        // tool bar tabs
+        val dailyTasks = binding.tabs.newTab()
+        val achieverGoals = binding.tabs.newTab()
+        binding.tabs.addTab(dailyTasks, 0)
+        binding.tabs.addTab(achieverGoals, 1)
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
-//        setActionBar(toolbar)
+
         //customize the tabs and their font and icons
-        TabLayoutMediator(tabLayout,viewPager){ currentTab, currentPosition ->
-            currentTab.text = when(currentPosition){
+        TabLayoutMediator(binding.tabs, binding.viewpager) { currentTab, currentPosition ->
+            currentTab.text = when (currentPosition) {
                 0 -> "Daily Tasks"
                 1 -> "Achiever Goals"
                 else -> "Default Text"
@@ -66,14 +57,9 @@ class MainActivity : AppCompatActivity() {
         }.attach()
 
 
-
-
-
-
-
         //it's responsible for open and close the navigation view menu
         actionBarDrawerToggle =
-            object : ActionBarDrawerToggle(this, drawerLayout, R.string.opened, R.string.closed) {
+            object : ActionBarDrawerToggle(this, binding.drawerLayout, R.string.opened, R.string.closed) {
                 override fun onDrawerOpened(drawerView: View) {
                     super.onDrawerOpened(drawerView)
                     invalidateOptionsMenu()
@@ -85,12 +71,13 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         actionBarDrawerToggle.syncState()
-        drawerLayout.addDrawerListener(actionBarDrawerToggle)
+        binding.drawerLayout.addDrawerListener(actionBarDrawerToggle)
 
 
         // this is responsible for open the activities when the user choose from navigation view menu
-        navigationView.setNavigationItemSelectedListener(NavigationView.OnNavigationItemSelectedListener { menuItem: MenuItem ->
-            drawerLayout.closeDrawers()
+        binding.navigationForApp.setNavigationItemSelectedListener(NavigationView.OnNavigationItemSelectedListener
+        { menuItem: MenuItem ->
+            binding.drawerLayout.closeDrawers()
             if (menuItem.itemId == R.id.moments_item) {
                 val intent = Intent(this@MainActivity, Moments::class.java)
                 startActivity(intent)
