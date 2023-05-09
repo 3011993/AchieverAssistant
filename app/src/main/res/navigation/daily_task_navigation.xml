@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/daily_task_navigation"
+    app:startDestination="@id/dailyTasksFragment">
+
+    <fragment
+        android:id="@+id/dailyTasksFragment"
+        android:name="com.example.achieverassistant.fragment.DailyTasksFragment"
+        android:label="DailyTasksFragment" >
+        <action
+            android:id="@+id/action_dailyTasksFragment_to_addEditDailyTaskScreen"
+            app:destination="@id/addEditDailyTaskScreen" />
+        <argument
+            android:name="dailyTask"
+            app:argType="com.example.achieverassistant.dailyPlan.models.DailyTasks" />
+    </fragment>
+    <fragment
+        android:id="@+id/addEditDailyTaskScreen"
+        android:name="com.example.achieverassistant.dailyPlan.AddEditDailyTaskScreen"
+        android:label="fragment_add_edit_daily_task_screen"
+        tools:layout="@layout/fragment_add_edit_daily_task_screen" >
+        <action
+            android:id="@+id/action_addEditDailyTaskScreen_to_dailyTasksFragment"
+            app:destination="@id/dailyTasksFragment" />
+        <argument
+            android:name="dailyTask"
+            app:argType="com.example.achieverassistant.dailyPlan.models.DailyTasks" />
+    </fragment>
+</navigation>
