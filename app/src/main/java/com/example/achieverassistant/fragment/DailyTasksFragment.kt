@@ -25,9 +25,11 @@ import com.example.achieverassistant.*
 import com.example.achieverassistant.dailyPlan.*
 import com.example.achieverassistant.dailyPlan.dialogs.DialogForDeleteAllTasks
 import com.example.achieverassistant.dailyPlan.dialogs.DialogForDeleteTask
+import com.example.achieverassistant.dailyPlan.models.DailyTasks
 import com.example.achieverassistant.databinding.DailyTasksLayoutBinding
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import dagger.hilt.android.AndroidEntryPoint
+import java.util.Date
 
 
 @AndroidEntryPoint
@@ -56,8 +58,20 @@ class DailyTasksFragment : Fragment() {
             data.putExtra(ADDEDITDailyTasks.EXTRA_DATA_TIME_CURRENT_TEXT, dailyTask.currentTextTime)
             editActivityResultLauncher.launch(data)
         }, { id ->
-            val dialogForDeleteTask = DialogForDeleteTask(id)
-            dialogForDeleteTask.show(childFragmentManager, "Dialog for delete Task")
+            val alert = AlertDialog.Builder(activity)
+            alert.setMessage("are you sure to delete this task?")
+            alert.setCancelable(true)
+            alert.setTitle("Delete your task")
+            alert.setPositiveButton("yes") { dialog, which ->
+                dailyTasksLiveModel.deleteDailyTask(id)
+                Toast.makeText(activity, "Task is Deleted", Toast.LENGTH_SHORT).show()
+            }
+            alert.setNegativeButton("No") { dialog, which ->
+                dialog.cancel()
+                Toast.makeText(activity, "Task is Not Deleted", Toast.LENGTH_SHORT).show()
+                //here to observe daily tasks
+            }
+            alert.show()
         })
 
         recyclerAdapterForDailyTask = RecyclerViewForDailyPlan(clickListener)
@@ -123,10 +137,10 @@ class DailyTasksFragment : Fragment() {
                     result.data!!.getStringExtra(ADDEDITDailyTasks.EXTRA_DATA_CURRENT_TEXT)
                         .toString()
                 val timeTask =
-                    result.data!!.getStringExtra(ADDEDITDailyTasks.EXTRA_DATA_TIME_CURRENT_TEXT)
-                        .toString()
-                //val dailyTasks = DailyTasks1(currentTask, timeTask)
-                //dailyTasksLiveModel.insertDailyTask(dailyTasks)
+                    result.data!!.getSerializableExtra(ADDEDITDailyTasks.EXTRA_DATA_TIME_CURRENT_TEXT) as Date
+
+                val dailyTasks = DailyTasks(currentTask, timeTask)
+                dailyTasksLiveModel.insertDailyTask(dailyTasks)
                 Toast.makeText(requireActivity(), "Task Added", Toast.LENGTH_SHORT).show()
             } else {
                 Toast.makeText(requireActivity(), "DailyTask Not Added", Toast.LENGTH_SHORT).show()
@@ -148,11 +162,10 @@ class DailyTasksFragment : Fragment() {
                         result.data!!.getStringExtra(ADDEDITDailyTasks.EXTRA_DATA_CURRENT_TEXT)
                             .toString()
                     val timeOfTask =
-                        result.data!!.getStringExtra(ADDEDITDailyTasks.EXTRA_DATA_TIME_CURRENT_TEXT)
-                            .toString()
-//                    val dailyTasks = DailyTasks1(currentTask, timeOfTask)
-//                    dailyTasks.id = id
-//                    dailyTasksLiveModel.updateDailyTask(dailyTasks)
+                        result.data!!.getSerializableExtra(ADDEDITDailyTasks.EXTRA_DATA_TIME_CURRENT_TEXT) as Date
+                    val dailyTasks = DailyTasks(currentTask, timeOfTask)
+                    dailyTasks.id = id
+                    dailyTasksLiveModel.updateDailyTask(dailyTasks)
                     Toast.makeText(activity, "Task Edited", Toast.LENGTH_SHORT).show()
                 } else {
                     Toast.makeText(activity, "DailyTask Not Edited", Toast.LENGTH_SHORT).show()

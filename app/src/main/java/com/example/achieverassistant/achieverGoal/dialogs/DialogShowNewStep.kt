@@ -11,7 +11,9 @@ import androidx.fragment.app.viewModels
 import com.example.achieverassistant.R
 import com.example.achieverassistant.achieverGoal.AchieverGoalViewModel
 import com.example.achieverassistant.achieverGoal.models.Steps
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class DialogShowNewStep : AppCompatDialogFragment() {
 
     private val achieverGoalViewModel by viewModels<AchieverGoalViewModel>()

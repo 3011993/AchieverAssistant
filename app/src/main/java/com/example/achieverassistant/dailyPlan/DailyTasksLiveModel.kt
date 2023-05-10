@@ -102,16 +102,6 @@ class DailyTasksLiveModel @Inject constructor(
     }
 
 
-    class DailyTasksFactory @Inject constructor(val database: DailyTasksDatabase, val app: Application) :
-        ViewModelProvider.Factory {
 
-        override fun <T : ViewModel> create(modelClass: Class<T>): T {
-            if (modelClass.isAssignableFrom(DailyTasksLiveModel::class.java)) {
-                @Suppress("UNCHECKED_CAST")
-                return DailyTasksLiveModel(database, app) as T
-            }
-            throw IllegalArgumentException("Unable to construct ViewModel")
-        }
-    }
 }
 

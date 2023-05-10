@@ -40,9 +40,10 @@ class ADDEDITDailyTasks : FragmentActivity() {
         if (intent.hasExtra(EXTRA_DATA_ID_CURRENT_TASK)) {
             title = "Edit Your Task"
             val currentText = intent.getStringExtra(EXTRA_DATA_CURRENT_TEXT)
-            val currentTime = intent.getStringExtra(EXTRA_DATA_TIME_CURRENT_TEXT)
+            val currentTime = intent.getSerializableExtra(EXTRA_DATA_TIME_CURRENT_TEXT) as Date
+            val timeString = convertDateToString(currentTime)
             binding.edittextCurenttext.setText(currentText)
-            binding.edittextTimeCurenttext.setText(currentTime)
+            binding.edittextTimeCurenttext.setText(timeString)
         } else {
             title = "Add New Task"
         }
@@ -104,13 +105,12 @@ class ADDEDITDailyTasks : FragmentActivity() {
 
         dailyTasks.currentTask = currentTask
 
-        dailyTasksLiveModel.insertDailyTask(dailyTasks)
 
 
         val saveData = Intent()
-        saveData.putExtra(EXTRA_DATA_CURRENT_TEXT, currentTask)
+        saveData.putExtra(EXTRA_DATA_CURRENT_TEXT, dailyTasks.currentTask)
         //need to change to send date not string
-        saveData.putExtra(EXTRA_DATA_TIME_CURRENT_TEXT, timeOfTask)
+        saveData.putExtra(EXTRA_DATA_TIME_CURRENT_TEXT, dailyTasks.currentTextTime)
 
         //this code for managing ID
         val id = intent.getIntExtra(EXTRA_DATA_ID_CURRENT_TASK, -1)
