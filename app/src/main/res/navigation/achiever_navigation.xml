@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/daily_task_navigation"
+    app:startDestination="@id/viewPagerFragment">
+    <fragment
+        android:id="@+id/viewPagerFragment"
+        android:name="com.example.achieverassistant.ViewPagerFragment"
+        android:label="fragment_view_pager"
+        tools:layout="@layout/fragment_view_pager" >
+        <action
+            android:id="@+id/action_viewPagerFragment_to_achieverGoalsFragment"
+            app:destination="@id/achieverGoalsFragment" />
+        <action
+            android:id="@+id/action_viewPagerFragment_to_dailyTasksFragment"
+            app:destination="@id/dailyTasksFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/achieverGoalsFragment"
+        android:name="com.example.achieverassistant.fragment.AchieverGoalsFragment"
+        android:label="AchieverGoalsFragment" >
+        <action
+            android:id="@+id/action_achieverGoalsFragment_to_addAndEditGoalScreen"
+            app:destination="@id/addAndEditGoalScreen" />
+    </fragment>
+    <fragment
+        android:id="@+id/dailyTasksFragment"
+        android:name="com.example.achieverassistant.fragment.DailyTasksFragment"
+        android:label="DailyTasksFragment" >
+        <action
+            android:id="@+id/action_dailyTasksFragment_to_addEditDailyTaskScreen"
+            app:destination="@id/addEditDailyTaskScreen" />
+    </fragment>
+    <fragment
+        android:id="@+id/addAndEditGoalScreen"
+        android:name="com.example.achieverassistant.achieverGoal.AddAndEditGoalScreen"
+        android:label="AddAndEditGoalScreen" >
+        <action
+            android:id="@+id/action_addAndEditGoalScreen_to_achieverGoalsFragment"
+            app:destination="@id/achieverGoalsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addEditDailyTaskScreen"
+        android:name="com.example.achieverassistant.dailyPlan.AddEditDailyTaskScreen"
+        android:label="AddEditDailyTaskScreen" >
+        <action
+            android:id="@+id/action_addEditDailyTaskScreen_to_dailyTasksFragment"
+            app:destination="@id/dailyTasksFragment" />
+    </fragment>
+</navigation>
