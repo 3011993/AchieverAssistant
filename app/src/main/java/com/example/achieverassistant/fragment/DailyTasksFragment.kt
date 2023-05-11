@@ -42,15 +42,6 @@ class DailyTasksFragment : Fragment() {
 
     private val dailyTasksLiveModel by activityViewModels<DailyTasksLiveModel>()
 
-    override fun onStart() {
-        super.onStart()
-        dailyTasksLiveModel.onStart()
-    }
-
-    override fun onResume() {
-        super.onResume()
-        dailyTasksLiveModel.onStart()
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -61,6 +52,7 @@ class DailyTasksFragment : Fragment() {
         binding = DataBindingUtil.inflate(inflater, R.layout.daily_tasks_layout, container, false)
 
 
+        //click listener to edit and delete items from recycler view
         val clickListener = RecyclerViewForDailyPlan.OnDailyTasksListener({ dailyTask ->
             val data = Intent(activity, ADDEDITDailyTasks::class.java)
             data.putExtra(ADDEDITDailyTasks.EXTRA_DATA_ID_CURRENT_TASK, dailyTask.id)
@@ -98,18 +90,17 @@ class DailyTasksFragment : Fragment() {
         }
 
         binding.buttonAddNewTask.setOnClickListener {
-
             val intent = Intent(activity, ADDEDITDailyTasks::class.java)
             addActivityResultLauncher.launch(intent)
         }
 
 
-
-
+        //request notifications new apis
         requestNotificationsAPI()
-
         createNotificationRight()
 
+
+        //new menu apis
         val menuHost: MenuHost = requireActivity()
 
         menuHost.addMenuProvider(object : MenuProvider {
@@ -137,7 +128,7 @@ class DailyTasksFragment : Fragment() {
     }
 
 
-    //Activity Result Launcher Apis
+    //Activity Result Launcher Apis for add new task
     private val addActivityResultLauncher = registerForActivityResult(
         StartActivityForResult()
     ) { result ->
@@ -158,6 +149,7 @@ class DailyTasksFragment : Fragment() {
         }
     }
 
+    //Activity Result Launcher Apis for edit task
     private val editActivityResultLauncher =
         registerForActivityResult(StartActivityForResult()) { result ->
             if (result.data != null) {
@@ -184,6 +176,7 @@ class DailyTasksFragment : Fragment() {
         }
 
 
+    //create notification channel
     private fun createChannel(channelId: String, channelName: String) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
 
@@ -205,6 +198,7 @@ class DailyTasksFragment : Fragment() {
         }
     }
 
+    // handle permission with new apis
     private val notificationPermissionLauncher =
         registerForActivityResult(ActivityResultContracts.RequestPermission()) { hasGranted ->
             hasNotificationPermissionGranted = hasGranted
