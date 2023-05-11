@@ -18,6 +18,7 @@ import androidx.core.view.MenuHost
 import androidx.core.view.MenuProvider
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.navigation.findNavController
@@ -39,8 +40,17 @@ class DailyTasksFragment : Fragment() {
     private lateinit var recyclerAdapterForDailyTask: RecyclerViewForDailyPlan
 
 
-    private val dailyTasksLiveModel by viewModels<DailyTasksLiveModel>()
+    private val dailyTasksLiveModel by activityViewModels<DailyTasksLiveModel>()
 
+    override fun onStart() {
+        super.onStart()
+        dailyTasksLiveModel.onStart()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        dailyTasksLiveModel.onStart()
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,

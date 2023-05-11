@@ -30,12 +30,20 @@ class DailyTasksLiveModel @Inject constructor(
     val allDailyTasks: LiveData<List<DailyTasks>>
         get() = _allDailyTasks
 
+
+
     init {
         viewModelScope.launch(Dispatchers.IO) {
             getALlDailyTasks()
         }
     }
 
+
+    fun onStart(){
+        viewModelScope.launch {
+            getALlDailyTasks()
+        }
+    }
 
     fun insertDailyTask(dailyTasks: DailyTasks) {
         viewModelScope.launch(Dispatchers.IO) {

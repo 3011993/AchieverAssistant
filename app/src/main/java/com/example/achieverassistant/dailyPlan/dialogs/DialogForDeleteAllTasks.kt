@@ -5,6 +5,7 @@ import android.app.Dialog
 import android.os.Bundle
 import android.widget.Toast
 import androidx.fragment.app.DialogFragment
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import com.example.achieverassistant.dailyPlan.DailyTasksLiveModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -13,7 +14,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class DialogForDeleteAllTasks : DialogFragment() {
 
 
-    private val dailyTasksViewModel by viewModels<DailyTasksLiveModel>()
+    private val dailyTasksViewModel by activityViewModels<DailyTasksLiveModel>()
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
 
