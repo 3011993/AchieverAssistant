@@ -18,6 +18,8 @@ class RecyclerAdapterForAchieverGoal(
     ListAdapter<AchieverGoal, RecyclerAdapterForAchieverGoal.ViewHolder>(DiffCallBack) {
 
 
+
+
     override fun onCreateViewHolder(viewGroup: ViewGroup, i: Int): ViewHolder {
         return ViewHolder.from(viewGroup, itemListenerInterface)
     }
@@ -43,9 +45,6 @@ class RecyclerAdapterForAchieverGoal(
 
 
             val adapter = RecyclerAdapterForSteps(itemListenerInterface)
-
-
-
 
             binding.recyclerSteps.adapter = adapter
             adapter.submitList(achieverGoal.steps)
@@ -103,7 +102,7 @@ class RecyclerAdapterForAchieverGoal(
     }
 
     class OnAchieverGoalListener(
-        val clickListenerAddStep: (steps: ArrayList<Steps?>?) -> Unit,
+        val clickListenerAddStep: (steps : ArrayList<Steps?>?) -> Unit,
         val clickListenerEditGoal: (achieverGoal: AchieverGoal) -> Unit,
         val clickListenerDeleteGoal: (achieverGoal: AchieverGoal) -> Unit,
 

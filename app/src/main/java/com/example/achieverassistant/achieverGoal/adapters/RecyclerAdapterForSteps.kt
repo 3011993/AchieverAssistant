@@ -30,6 +30,12 @@ class RecyclerAdapterForSteps(private val itemListenerInterface: ItemListenerInt
 
     }
 
+    fun setData(steps: Steps){
+        currentList.add(steps)
+        notifyDataSetChanged()
+    }
+
+
     override fun editStep(position: Int) {
         Log.i("child", "edit step clicked")
         itemListenerInterface.editStep(position)

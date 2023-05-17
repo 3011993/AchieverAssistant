@@ -17,6 +17,10 @@ interface AchieverGoalDAO {
     @Delete
     fun deleteGoal(achieverGoal: AchieverGoal)
 
+    @Query("Delete From AchieverGoal where achieverGoalId ==:id")
+    fun deleteGoalById(id : Int)
+
+
     @Query("DELETE FROM AchieverGoal")
     fun deleteAll()
 
@@ -27,6 +31,8 @@ interface AchieverGoalDAO {
     @Query("SELECT * FROM AchieverGoal WHERE achieverGoalId == :id")
     suspend fun getAllGoals(id: Int): List<AchieverGoalWithSteps>
 
+    @Query("UPDATE AchieverGoal Set steps=:steps WHERE achieverGoalId==:id")
+    fun updateStepsWithGoal(id: Int,steps: ArrayList<Steps?>?)
 
     @Insert
     fun insertStep(steps: Steps)

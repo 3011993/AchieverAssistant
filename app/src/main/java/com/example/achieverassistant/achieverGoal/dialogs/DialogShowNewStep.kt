@@ -33,8 +33,13 @@ class DialogShowNewStep : AppCompatDialogFragment() {
             })
             .setPositiveButton("Add", DialogInterface.OnClickListener { dialog, which ->
                 if (editText.text != null) {
-                    val step = editText.text.toString()
-                    achieverGoalViewModel.updateStep(Steps(step))
+                    val steps = ArrayList<Steps?>()
+                    val s = editText.text.toString()
+                    for (step in steps ){
+                        step!!.step = s
+                        steps.add(step)
+                    }
+                    achieverGoalViewModel.updateStep(1,steps)
                     Toast.makeText(context, "Step Added", Toast.LENGTH_SHORT).show()
                 }
             })

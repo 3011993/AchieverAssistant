@@ -17,4 +17,12 @@ class StepsConverter {
         val listType = object : TypeToken<ArrayList<Steps?>?>() {}.type
         return Gson().fromJson(value, listType)
     }
+
+    @TypeConverter
+    fun stepToString(value: String ) = Steps(value)
+
+    @TypeConverter
+    fun stringToStep(value: Steps): String {
+        return value.step
+    }
 }

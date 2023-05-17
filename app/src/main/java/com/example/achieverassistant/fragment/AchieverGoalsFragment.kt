@@ -55,6 +55,7 @@ class AchieverGoalsFragment : Fragment(), ItemListenerInterface {
             RecyclerAdapterForAchieverGoal.OnAchieverGoalListener({
                 val showNewStep = DialogShowNewStep()
                 showNewStep.show(childFragmentManager, "add new Step dialog")
+                achieverGoalViewModel.updateStep(1, it)
 
 
             }, { achieverGoal ->
@@ -69,12 +70,12 @@ class AchieverGoalsFragment : Fragment(), ItemListenerInterface {
                 //intent.putExtra(AddEditGoal.EXTRA_DATA_STEP_GOAl, achieverGoal.steps)
                 editActivityLauncher.launch(intent)
 
-            }, { achieverGoal ->
+            }) { achieverGoal ->
                 Toast.makeText(requireContext(), "DeleteGoal", Toast.LENGTH_SHORT).show()
                 val dialogRemoveGoal = DialogRemoveGoal(achieverGoal)
                 dialogRemoveGoal.show(childFragmentManager, "Delete Goal!")
 
-            })
+            }
 
         recyclerAdapterForAchieverGoal = RecyclerAdapterForAchieverGoal(
             clickListener,

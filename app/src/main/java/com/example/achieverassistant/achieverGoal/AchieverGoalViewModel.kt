@@ -83,9 +83,9 @@ class AchieverGoalViewModel @Inject constructor(
         }
     }
 
-    fun updateStep(steps: Steps) {
+    fun updateStep(id : Int ,steps: ArrayList<Steps?>?) {
         viewModelScope.launch(Dispatchers.IO) {
-            database.achieverGoalDAO().updateStep(steps)
+            database.achieverGoalDAO().updateStepsWithGoal(id,steps)
         }
     }
 
