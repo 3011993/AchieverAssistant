@@ -14,6 +14,7 @@ import androidx.activity.viewModels
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.viewModels
+import androidx.navigation.findNavController
 import com.example.achieverassistant.R
 import com.example.achieverassistant.dailyPlan.models.DailyTasks
 import com.example.achieverassistant.databinding.ActivityAddeditdailyTasksBinding
@@ -40,7 +41,7 @@ class AddEditDailyTaskScreen : Fragment() {
         binding =
             DataBindingUtil.inflate(inflater,R.layout.fragment_add_edit_daily_task_screen,container,false)
 
-        binding.buttonSaveDailytask.setOnClickListener { saveDailyTasks() }
+        binding.buttonSaveDailytask.setOnClickListener { saveDailyTasks(it) }
 
 
         binding.edittextTimeCurenttext.isFocusable = false
@@ -88,7 +89,7 @@ class AddEditDailyTaskScreen : Fragment() {
         tP.show()
     }
 
-    private fun saveDailyTasks() {
+    private fun saveDailyTasks(v : View) {
 
         val currentTask = binding.edittextCurenttext.text.toString()
         val timeOfTask = binding.edittextTimeCurenttext.text.toString()
@@ -105,11 +106,13 @@ class AddEditDailyTaskScreen : Fragment() {
 
         dailyTasksLiveModel.insertDailyTask(dailyTasks)
 
+        v.findNavController().navigate(AddEditDailyTaskScreenDirections.actionAddEditDailyTaskScreenToDailyTasksFragment())
 
-        val saveData = Intent()
-        saveData.putExtra(EXTRA_DATA_CURRENT_TEXT, currentTask)
-        //need to change to send date not string
-        saveData.putExtra(EXTRA_DATA_TIME_CURRENT_TEXT, timeOfTask)
+
+//        val saveData = Intent()
+//        saveData.putExtra(EXTRA_DATA_CURRENT_TEXT, currentTask)
+//        //need to change to send date not string
+//        saveData.putExtra(EXTRA_DATA_TIME_CURRENT_TEXT, timeOfTask)
 
         //this code for managing ID
 //        val id = intent.getIntExtra(EXTRA_DATA_ID_CURRENT_TASK, -1)

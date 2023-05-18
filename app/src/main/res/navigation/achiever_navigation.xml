@@ -2,20 +2,8 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/daily_task_navigation"
-    app:startDestination="@id/viewPagerFragment">
-    <fragment
-        android:id="@+id/viewPagerFragment"
-        android:name="com.example.achieverassistant.ViewPagerFragment"
-        android:label="fragment_view_pager"
-        tools:layout="@layout/fragment_view_pager" >
-        <action
-            android:id="@+id/action_viewPagerFragment_to_achieverGoalsFragment"
-            app:destination="@id/achieverGoalsFragment" />
-        <action
-            android:id="@+id/action_viewPagerFragment_to_dailyTasksFragment"
-            app:destination="@id/dailyTasksFragment" />
-    </fragment>
+    android:id="@+id/achiever_navigation"
+    app:startDestination="@id/dailyTasksFragment">
     <fragment
         android:id="@+id/achieverGoalsFragment"
         android:name="com.example.achieverassistant.achieverGoal.AchieverGoalsFragment"
@@ -47,5 +35,23 @@
         <action
             android:id="@+id/action_addEditDailyTaskScreen_to_dailyTasksFragment"
             app:destination="@id/dailyTasksFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/momentsScreen"
+        android:name="com.example.achieverassistant.moments.MomentsScreen"
+        android:label="fragment_moments_screen"
+        tools:layout="@layout/fragment_moments_screen" >
+        <action
+            android:id="@+id/action_momentsScreen_to_addAndEditMomentScreen"
+            app:destination="@id/addAndEditMomentScreen" />
+    </fragment>
+    <fragment
+        android:id="@+id/addAndEditMomentScreen"
+        android:name="com.example.achieverassistant.moments.AddAndEditMomentScreen"
+        android:label="fragment_add_and_edit_moment_screen"
+        tools:layout="@layout/fragment_add_and_edit_moment_screen" >
+        <action
+            android:id="@+id/action_addAndEditMomentScreen_to_momentsScreen"
+            app:destination="@id/momentsScreen" />
     </fragment>
 </navigation>

@@ -20,6 +20,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Lifecycle
+import androidx.navigation.findNavController
 import com.example.achieverassistant.*
 import com.example.achieverassistant.dailyPlan.dialogs.DialogForDeleteAllTasks
 import com.example.achieverassistant.dailyPlan.models.DailyTasks
@@ -86,8 +87,7 @@ class DailyTasksFragment : Fragment() {
         }
 
         binding.buttonAddNewTask.setOnClickListener {
-            val intent = Intent(activity, ADDEDITDailyTasks::class.java)
-            addActivityResultLauncher.launch(intent)
+          it.findNavController().navigate(DailyTasksFragmentDirections.actionDailyTasksFragmentToAddEditDailyTaskScreen())
         }
 
 

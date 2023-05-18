@@ -68,6 +68,7 @@ class AddAndEditGoalScreen : Fragment() {
         Toast.makeText(requireContext(), "Goal Added", Toast.LENGTH_SHORT).show()
 
 
+
 //        val saveGoal = Intent()
 //        saveGoal.putExtra(EXTRA_DATA_GOAL, goal)
 //        saveGoal.putExtra(EXTRA_DATA_DURATION_GOAl, durationGoal)

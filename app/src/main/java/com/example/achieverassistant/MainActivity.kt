@@ -13,7 +13,6 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
 import com.example.achieverassistant.databinding.ActivityMainBinding
-import com.example.achieverassistant.moments.Moments
 import com.example.achieverassistant.quotes.Quotes
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -55,8 +54,7 @@ class MainActivity : AppCompatActivity() {
             { menuItem: MenuItem ->
                 binding.drawerLayout.closeDrawers()
                 if (menuItem.itemId == R.id.moments_item) {
-                    val intent = Intent(this, Moments::class.java)
-                    startActivity(intent)
+
                 }
                 if (menuItem.itemId == R.id.quotes_item) {
                     val intent = Intent(this, Quotes::class.java)
@@ -68,7 +66,7 @@ class MainActivity : AppCompatActivity() {
 
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
 
-        val navController = this.findNavController(R.id.navHostManager)
+        val navController = this.findNavController(R.id.navHostManger)
         appBarConfiguration = AppBarConfiguration(navController.graph, binding.drawerLayout)
 
     }
@@ -80,7 +78,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onSupportNavigateUp(): Boolean {
-        val navController = this.findNavController(R.id.navHostManager)
+        val navController = this.findNavController(R.id.navHostManger)
         return NavigationUI.navigateUp(navController,binding.drawerLayout)
     }
 
@@ -88,4 +86,6 @@ class MainActivity : AppCompatActivity() {
         super.onPostCreate(savedInstanceState, persistentState)
         actionBarDrawerToggle.syncState()
     }
+
+
 }
