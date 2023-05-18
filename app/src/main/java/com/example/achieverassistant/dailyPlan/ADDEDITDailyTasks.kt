@@ -24,7 +24,7 @@ class ADDEDITDailyTasks : FragmentActivity() {
     private lateinit var binding: ActivityAddeditdailyTasksBinding
 
     private val dailyTasksLiveModel by viewModels<DailyTasksLiveModel>()
-    private  var dailyTasks = DailyTasks("", Date(MAX_TIME_STAMP))
+    private var dailyTasks = DailyTasks("", Date(MAX_TIME_STAMP))
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -50,7 +50,6 @@ class ADDEDITDailyTasks : FragmentActivity() {
     }
 
 
-
     //methods for edit text for time onclickListener
     private fun createCalendar() {
         val c = Calendar.getInstance()
@@ -58,7 +57,7 @@ class ADDEDITDailyTasks : FragmentActivity() {
         val minute = c[Calendar.MINUTE]
         val tP = TimePickerDialog(
             this,
-            com.google.android.material.R.style.MaterialAlertDialog_Material3,
+            com.google.android.material.R.style.ThemeOverlay_MaterialComponents_MaterialAlertDialog_Picker_Date_Spinner,
 
             { view, hourOfDay, minute ->
                 val c = Calendar.getInstance()
@@ -107,6 +106,7 @@ class ADDEDITDailyTasks : FragmentActivity() {
 
 
 
+
         val saveData = Intent()
         saveData.putExtra(EXTRA_DATA_CURRENT_TEXT, dailyTasks.currentTask)
         //need to change to send date not string
@@ -120,9 +120,6 @@ class ADDEDITDailyTasks : FragmentActivity() {
         setResult(RESULT_OK, saveData)
         finish()
     }
-
-
-
 
 
     companion object {

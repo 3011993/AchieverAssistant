@@ -39,11 +39,6 @@ class DailyTasksLiveModel @Inject constructor(
     }
 
 
-    fun onStart(){
-        viewModelScope.launch {
-            getALlDailyTasks()
-        }
-    }
 
     fun insertDailyTask(dailyTasks: DailyTasks) {
         viewModelScope.launch(Dispatchers.IO) {
