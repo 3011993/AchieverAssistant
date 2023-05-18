@@ -1,28 +1,20 @@
 package com.example.achieverassistant
 
 import androidx.appcompat.app.AppCompatActivity
-import androidx.drawerlayout.widget.DrawerLayout
 import androidx.appcompat.app.ActionBarDrawerToggle
 import com.google.android.material.navigation.NavigationView
-import com.google.android.material.tabs.TabLayout
 import android.os.Bundle
 import android.content.Intent
 import android.os.PersistableBundle
 import android.view.MenuItem
 import android.view.View
-import androidx.appcompat.widget.Toolbar
-import androidx.core.app.ActivityCompat
 import androidx.databinding.DataBindingUtil
-import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
-import androidx.viewpager2.widget.ViewPager2
 import com.example.achieverassistant.databinding.ActivityMainBinding
 import com.example.achieverassistant.moments.Moments
 import com.example.achieverassistant.quotes.Quotes
-import com.example.achieverassistant.habits.Habits
-import com.google.android.material.tabs.TabLayoutMediator
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -37,6 +29,9 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
+
+
+        val viewPagerAdapter = ViewPagerAdapter(this)
 
         actionBarDrawerToggle =
             object : ActionBarDrawerToggle(this, binding.drawerLayout, R.string.opened, R.string.closed) {
@@ -67,10 +62,7 @@ class MainActivity : AppCompatActivity() {
                     val intent = Intent(this, Quotes::class.java)
                     startActivity(intent)
                 }
-                if (menuItem.itemId == R.id.habits_item) {
-                    val intent = Intent(this, Habits::class.java)
-                    startActivity(intent)
-                }
+
                 false
             })
 
@@ -94,5 +86,6 @@ class MainActivity : AppCompatActivity() {
 
     override fun onPostCreate(savedInstanceState: Bundle?, persistentState: PersistableBundle?) {
         super.onPostCreate(savedInstanceState, persistentState)
+        actionBarDrawerToggle.syncState()
     }
 }

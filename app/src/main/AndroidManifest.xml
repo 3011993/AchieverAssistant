@@ -23,8 +23,6 @@
         android:roundIcon="@mipmap/ic_achiever"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".habits.Habits" />
-        <activity android:name=".Help.Help" />
         <activity android:name=".settings.Settings" />
         <activity android:name=".quotes.ADDEDITQuote" />
         <activity android:name=".quotes.Quotes" />

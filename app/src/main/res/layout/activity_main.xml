@@ -3,35 +3,40 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <data>
-
-    </data>
-
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-    <fragment
-        android:id="@+id/navHostManager"
-        android:name="androidx.navigation.fragment.NavHostFragment"
-        android:layout_width="match_parent"
-        app:defaultNavHost="true"
-        app:navGraph="@navigation/achiever_navigation"
-        android:layout_height="match_parent"/>
 
-    <androidx.drawerlayout.widget.DrawerLayout
-        android:id="@+id/drawerLayout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:background="@color/md_theme_light_surface"
-        android:contentDescription=""
 
-        />
-    <com.google.android.material.navigation.NavigationView
-        android:id="@+id/navigation_for_app"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:layout_gravity="start"
-        app:menu="@menu/drawer_menu" />
+        <androidx.drawerlayout.widget.DrawerLayout
+            android:id="@+id/drawerLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <androidx.viewpager2.widget.ViewPager2
+                android:id="@+id/viewPager"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+
+            <fragment
+                android:id="@+id/navHostManager"
+                android:name="androidx.navigation.fragment.NavHostFragment"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:defaultNavHost="true"
+                app:navGraph="@navigation/achiever_navigation" />
+
+            <com.google.android.material.navigation.NavigationView
+                android:id="@+id/navigation_for_app"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="start"
+                app:menu="@menu/drawer_menu" />
+        </androidx.drawerlayout.widget.DrawerLayout>
+
+
+
     </RelativeLayout>
+
 </layout>

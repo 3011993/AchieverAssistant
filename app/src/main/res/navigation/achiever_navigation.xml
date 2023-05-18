@@ -18,7 +18,7 @@
     </fragment>
     <fragment
         android:id="@+id/achieverGoalsFragment"
-        android:name="com.example.achieverassistant.fragment.AchieverGoalsFragment"
+        android:name="com.example.achieverassistant.achieverGoal.AchieverGoalsFragment"
         android:label="AchieverGoalsFragment" >
         <action
             android:id="@+id/action_achieverGoalsFragment_to_addAndEditGoalScreen"
@@ -26,7 +26,7 @@
     </fragment>
     <fragment
         android:id="@+id/dailyTasksFragment"
-        android:name="com.example.achieverassistant.fragment.DailyTasksFragment"
+        android:name="com.example.achieverassistant.dailyPlan.DailyTasksFragment"
         android:label="DailyTasksFragment" >
         <action
             android:id="@+id/action_dailyTasksFragment_to_addEditDailyTaskScreen"

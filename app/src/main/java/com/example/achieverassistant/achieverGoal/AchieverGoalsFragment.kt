@@ -1,4 +1,4 @@
-package com.example.achieverassistant.fragment
+package com.example.achieverassistant.achieverGoal
 
 
 import android.app.Activity
@@ -15,7 +15,6 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import com.example.achieverassistant.R
-import com.example.achieverassistant.achieverGoal.*
 import com.example.achieverassistant.achieverGoal.adapters.RecyclerAdapterForAchieverGoal
 import com.example.achieverassistant.achieverGoal.dialogs.DialogRemoveGoal
 import com.example.achieverassistant.achieverGoal.dialogs.DialogShowNewStep

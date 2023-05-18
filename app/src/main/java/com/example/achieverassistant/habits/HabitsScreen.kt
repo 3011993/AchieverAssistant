@@ -1,4 +1,4 @@
-package com.example.achieverassistant.dailyPlan
+package com.example.achieverassistant.habits
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -7,9 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import com.example.achieverassistant.R
 
-class DailyTaskNavigation : Fragment() {
 
-
+class HabitsScreen : Fragment() {
 
 
     override fun onCreateView(
@@ -17,8 +16,7 @@ class DailyTaskNavigation : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_daily_task_navigation, container, false)
+        return inflater.inflate(R.layout.fragment_habits_screen, container, false)
     }
-
 
 }
